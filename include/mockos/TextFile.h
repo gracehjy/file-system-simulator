@@ -10,4 +10,7 @@ public:
     TextFile(std::string f);
     unsigned int getSize() override;
     std::string getName() override;
+    int write(std::vector<char>) override;
+    int append(std::vector<char>) override;
+    void read() override;
 };
