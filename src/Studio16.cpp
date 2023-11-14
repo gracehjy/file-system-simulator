@@ -5,7 +5,7 @@ using namespace std;
 
 int main(){
     AbstractFile* file = new TextFile("FirstTest");
-    vector<char> v = { 'h', 'i' , '!'};
+    vector<char> v = { 'h', 'i', '!'};
     file->write(v);
     file->read();
     return 0;

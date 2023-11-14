@@ -16,12 +16,12 @@ string TextFile::getName() {
 
 int TextFile::write(vector<char> contents) {
     fileContents = contents;
-    return 0;
+    return success;
 }
 
-int TextFile::append(std::vector<char> additionalContent) {
+int TextFile::append(vector<char> additionalContent) {
     fileContents.insert(fileContents.end(),additionalContent.begin(),additionalContent.end());
-    return 0;
+    return success;
 }
 
 void TextFile::read() {

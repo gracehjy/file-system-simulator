@@ -3,6 +3,9 @@
 #include <vector>
 #include <string>
 
+enum returnVals{success, size_mismatch, invalid_chars, file_type_not_supported, file_already_exists,
+        pointer_is_null, invalid_file_extension, file_not_open, cant_delete_open_file, file_does_not_exist};
+
 class AbstractFile{
 public:
     virtual void read() = 0;
