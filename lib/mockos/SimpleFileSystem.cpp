@@ -16,32 +16,6 @@ int SimpleFileSystem::addFile(std::string fileName, AbstractFile *file) {
     return success;
 }
 
-int SimpleFileSystem::createFile(std::string fileName) {
-    if(files.find(fileName) != files.end()){
-        return file_already_exists;
-    }
-
-    //get dot
-    int dotIndex = fileName.find_last_of('.');
-    if(dotIndex >= fileName.size() - 1 || dotIndex <= 0){
-        return invalid_file_extension;
-    }
-    string ext = fileName.substr(dotIndex+1);
-    AbstractFile* newFile = nullptr;
-    if(ext == "txt"){
-        newFile = new TextFile(fileName);
-    }
-    else if(ext == "img"){
-        newFile = new ImageFile(fileName);
-    }
-    else{
-        return invalid_file_extension;
-    }
-
-    files.insert({fileName, newFile});
-    return success;
-}
-
 AbstractFile *SimpleFileSystem::openFile(std::string fileName) {
     if(files.find(fileName) != files.end()){
         if(openFiles.find(files.find(fileName)->second) == openFiles.end()){
