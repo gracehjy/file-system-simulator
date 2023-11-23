@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AbstractFileVisitor.h"
 #include <vector>
 #include <string>
 
@@ -8,9 +9,12 @@ enum returnVals{success, size_mismatch, invalid_chars, file_type_not_supported, 
 
 class AbstractFile{
 public:
-    virtual void read() = 0;
+    virtual ~AbstractFile() = default;
+
+    virtual std::vector<char> read() = 0;
     virtual int write(std::vector<char>) = 0;
     virtual int append(std::vector<char>) = 0;
     virtual unsigned int getSize() = 0;
     virtual std::string getName() = 0;
+    virtual void accept(AbstractFileVisitor* visitor) = 0;
 };

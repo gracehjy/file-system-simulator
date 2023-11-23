@@ -35,12 +35,10 @@ int ImageFile::append(vector<char> additionalContent) {
     return file_type_not_supported;
 }
 
-void ImageFile::read() {
-    for(int row = imageSize - 1; row >= 0; row--){
-        for(int col = 0; col < imageSize; col++){
-            unsigned int index = imageSize*row + col;
-            cout << fileContents[index];
-        }
-        cout << endl;
-    }
+std::vector<char> ImageFile::read() {
+    return fileContents;
+}
+
+void ImageFile::accept(AbstractFileVisitor *visitor) {
+    visitor->visit_ImageFile(this);
 }

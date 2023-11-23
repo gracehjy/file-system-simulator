@@ -24,9 +24,11 @@ int TextFile::append(vector<char> additionalContent) {
     return success;
 }
 
-void TextFile::read() {
-    for(char c : fileContents){
-        cout << c;
-    }
+std::vector<char> TextFile::read() {
+    return fileContents;
+}
+
+void TextFile::accept(AbstractFileVisitor *visitor) {
+    visitor->visit_TextFile(this);
 }
 
