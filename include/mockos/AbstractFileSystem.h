@@ -1,3 +1,4 @@
+#pragma once
 #include "AbstractFile.h"
 #include <string>
 
