@@ -411,6 +411,8 @@ TEST(basicDisplayVisitor,visitTextFile) { // tests output of basic display visit
     std::vector<char> v = { 'h', 'i' };
     int resWrite = t.write(v);
     // REDIRECT STD STREAM
+    streambuf* backup_out;
+    backup_out = cout.rdbuf();
     streambuf* backup;
     backup = cout.rdbuf();
     stringstream ss;

@@ -1,6 +1,5 @@
 #include "../include/mockos/AbstractFileFactory.h"
 #include "../include/mockos/SimpleFileFactory.h"
-#include "../include/mockos/AbstractFile.h"
 #include "mockos/SimpleFileSystem.h"
 #include "mockos/BasicDisplayVisitor.h"
 
