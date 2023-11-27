@@ -8,26 +8,26 @@ using namespace std;
 
 int main(){
     // dynamically allocate a SimpleFileSystem, a SimpleFileFactory, and a TouchCommand object
-    SimpleFileSystem* fileSystem = new SimpleFileSystem;
-    SimpleFileFactory* fileFactory = new SimpleFileFactory;
+    SimpleFileSystem* fileSystem = new SimpleFileSystem();
+    SimpleFileFactory* fileFactory = new SimpleFileFactory();
     TouchCommand* touchCommand = new TouchCommand(fileSystem, fileFactory);
 
     // create a variable of type CommandPrompt and configure it with the above created objects
-    CommandPrompt commandPrompt;
-    commandPrompt.setFileFactory(fileFactory);
-    commandPrompt.setFileSystem(fileSystem);
-    commandPrompt.addCommand("touch", touchCommand);
+    CommandPrompt* commandPrompt = new CommandPrompt();
+    commandPrompt->setFileFactory(fileFactory);
+    commandPrompt->setFileSystem(fileSystem);
+    commandPrompt->addCommand("touch", touchCommand);
 
     // call run() on the commandPrompt object
-    commandPrompt.run();
+    commandPrompt->run();
 
     // verify “touch” worked correctly by trying to open the file it created.
     cout << "Attempting to open the file created by touch..." << endl;
-    AbstractFile* openedFile = fileSystem->openFile("");
+    AbstractFile* openedFile = fileSystem->openFile("file.txt");
 
     if (openedFile) {
         cout << "File opened successfully!" << endl;
-        // You can perform further actions with the opened file if needed
+        //You can perform further actions with the opened file if needed
     } else {
         cout << "Error opening the file." << endl;
     }
@@ -36,6 +36,7 @@ int main(){
     delete touchCommand;
     delete fileFactory;
     delete fileSystem;
+    delete commandPrompt;
 
     return success;
 }

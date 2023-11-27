@@ -34,5 +34,10 @@ Test 4: execute touch -->
 
       /Users/gracehuang/CLionProjects/oop-work-grace-eric-studio16/cmake-build-debug/src/studio21
       Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
-      $  touch
-      Command failed.
+      $  touch file.txt
+      Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+      $  q
+      Attempting to open the file created by touch...
+      File opened successfully!
+      
+      Process finished with exit code 0
