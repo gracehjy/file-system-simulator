@@ -411,8 +411,6 @@ TEST(basicDisplayVisitor,visitTextFile) { // tests output of basic display visit
     std::vector<char> v = { 'h', 'i' };
     int resWrite = t.write(v);
     // REDIRECT STD STREAM
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
     streambuf* backup;
     backup = cout.rdbuf();
     stringstream ss;
@@ -426,7 +424,6 @@ TEST(basicDisplayVisitor,visitTextFile) { // tests output of basic display visit
     cout.rdbuf(backup);
     ASSERT_EQ(wordShouldBe, word);
     ASSERT_EQ(0, resWrite);
-    cout.rdbuf(backup_out);
 }
 
 TEST(basicDisplayVisitor,visitImageFile) { // tests the output the basic display visitor for an image file, expects 5 Xs
