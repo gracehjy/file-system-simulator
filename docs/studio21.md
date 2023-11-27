@@ -4,7 +4,7 @@
    that the correct destructors are called (both derived and base class destructors)
 3. The CommandPrompt class is flexible and reusable because it relies solely on the AbstractCommand interface.
    We can alter commands without changing how the actually command prompt behaves. "Dependency Injection" also makes it so that
-   different file systems and file factories can be implemented and the command prompt and easily be configured to adapt to these 
+   different file systems and file factories can be implemented and the command prompt can easily be configured to adapt to these 
    different implementations.
 4. Test 1: user quits --> unique return value of 12 is returned to indicate a quit
 
