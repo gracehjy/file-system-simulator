@@ -1,5 +1,5 @@
 # Studio 20
-1. Grace Huang, Eric Wang
+1. Grace Huang, Eric Wang, Chris Chen
 2. It is necessary to delete the pointer to the actual file in the PasswordProxy destructor because
    if we don't, we may run into memory leak issues
 3. no question 

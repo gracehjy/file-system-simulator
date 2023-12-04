@@ -1,5 +1,5 @@
 # Studio 21
-1. Grace Huang, Eric Wang
+1. Grace Huang, Eric Wang, Chris Chen
 2. It's important to declare a virtual destructor in the base class because this ensures
    that the correct destructors are called (both derived and base class destructors)
 3. The CommandPrompt class is flexible and reusable because it relies solely on the AbstractCommand interface.

@@ -1,5 +1,5 @@
 # Studio 19
-1. Grace Huang, Eric Wang
+1. Grace Huang, Eric Wang, Chris Chen
 2. Test:
 
 
@@ -36,7 +36,7 @@ Output:
         Process finished with exit code 0
 
 3. The visitors for the file types inherit from AbstractFileVisitor; each file type has its own visit method.
-4. Delagation is when an object passes some task to another object to perform. Here, we passed the task of displaying the 
+4. Delegation is when an object passes some task to another object to perform. Here, we passed the task of displaying the 
    contents of a file object to a another object of the BasicDisplayVisitor class to perform. This avoids cluttering the interfaces of the
    file type classes by taking that specific task out for those file classes.
 5. If we have a lot of unique visitors and want to add a new concrete file type that should be visitable, we would need to modify

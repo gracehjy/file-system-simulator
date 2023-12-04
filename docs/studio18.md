@@ -1,12 +1,11 @@
 # Studio 18
 
-1. Grace Huang, Eric Wang
+1. Grace Huang, Eric Wang, Chris Chen
 2. To create a new file system that uses different file types, we can just create another derived class
    of the AbstractFileSystem class and override the createFile method. Depending on the specific file types, however,
    this can be more or less complex to do. The createFile code would need to be modified if we create a new concrete file type that is
    used by many different file system implementations.
-3. Advantages of the Abstract Factory Pattern: encapsulates the creation of objects, makes use of abstraction, the objects created
-   are consistent with each other. Disadvantages: can become complex when the number of different types of files increases. We would
+3. Advantages of the Abstract Factory Pattern: encapsulates the creation of objects, makes use of abstraction. Disadvantages: can become complex when the number of different types of files increases. We would
    want to create a new concrete file factory class when we want to introduce a new object that's related to the others. For instance, in this
    case, we might want to create a new concrete file factory class when we want to introduce a new file type that may need a different way of being created.
    If a new file type is introduced that should be created by existing factories, we would need to modify the createFile method in each factory
