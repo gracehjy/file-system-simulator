@@ -1,15 +1,14 @@
 #include "AbstractFileSystem.h"
-#include <string>
 #include <map>
-#include <set>
 
 class SimpleFileSystem: public AbstractFileSystem {
 protected:
     std::map<std::string , AbstractFile*> files;
     std::set<AbstractFile*> openFiles;
 public:
-    int addFile(std::string fileName, AbstractFile *file) override;
-    AbstractFile * openFile(std::string fileName) override;
-    int closeFile(AbstractFile *file) override;
-    int deleteFile(std::string fileName) override;
+    virtual int addFile(std::string fileName, AbstractFile *file) override;
+    virtual AbstractFile * openFile(std::string fileName) override;
+    virtual int closeFile(AbstractFile *file) override;
+    virtual int deleteFile(std::string fileName) override;
+    virtual std::set<std::string> getFileNames() override;
 };

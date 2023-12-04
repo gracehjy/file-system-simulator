@@ -5,6 +5,7 @@
 #include <iostream>
 using namespace std;
 
+// add a given file into the map of files if it doesn't already exist
 int SimpleFileSystem::addFile(std::string fileName, AbstractFile *file) {
     if(files.find(fileName) != files.end()){
         return file_already_exists;
@@ -16,6 +17,7 @@ int SimpleFileSystem::addFile(std::string fileName, AbstractFile *file) {
     return success;
 }
 
+// open a given filename if it exists in the map of files by adding it into the openFiles set
 AbstractFile *SimpleFileSystem::openFile(std::string fileName) {
     if(files.find(fileName) != files.end()){
         if(openFiles.find(files.find(fileName)->second) == openFiles.end()){
@@ -26,6 +28,7 @@ AbstractFile *SimpleFileSystem::openFile(std::string fileName) {
     return nullptr;
 }
 
+// close a file by erasing it from the openFiles set if it exists
 int SimpleFileSystem::closeFile(AbstractFile *file) {
     if(openFiles.find(file) != openFiles.end()){
         openFiles.erase(file);
@@ -34,6 +37,7 @@ int SimpleFileSystem::closeFile(AbstractFile *file) {
     return file_not_open;
 }
 
+// delete a file if it exists in the map of files
 int SimpleFileSystem::deleteFile(std::string fileName) {
     auto f = files.find(fileName);
     if(f != files.end()){
@@ -47,4 +51,13 @@ int SimpleFileSystem::deleteFile(std::string fileName) {
         }
     }
     return file_does_not_exist;
+}
+
+// return a set<string> containing the names of all the files
+set<string> SimpleFileSystem::getFileNames() {
+    set<string> fileNames;
+    for(auto& entry : files){
+        fileNames.insert(entry.first);
+    }
+    return fileNames;
 }
