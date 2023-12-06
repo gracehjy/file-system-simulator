@@ -3,6 +3,7 @@
 #include "mockos/TouchCommand.h"
 #include "mockos/CommandPrompt.h"
 #include "mockos/LSCommand.h"
+#include "mockos/RemoveCommand.h"
 
 #include <iostream>
 using namespace std;
@@ -13,6 +14,7 @@ int main(){
     SimpleFileFactory* fileFactory = new SimpleFileFactory();
     TouchCommand* touchCommand = new TouchCommand(fileSystem, fileFactory);
     LSCommand* lsCommand = new LSCommand(fileSystem, fileFactory);
+    RemoveCommand* rmCommand = new RemoveCommand(fileSystem, fileFactory);
 
     // create a variable of type CommandPrompt and configure it with the above created objects
     CommandPrompt* commandPrompt = new CommandPrompt();
@@ -20,6 +22,7 @@ int main(){
     commandPrompt->setFileSystem(fileSystem);
     commandPrompt->addCommand("touch", touchCommand);
     commandPrompt->addCommand("ls", lsCommand);
+    commandPrompt->addCommand("rm", rmCommand);
     // call run() on the commandPrompt object
     commandPrompt->run();
 
@@ -36,6 +39,8 @@ int main(){
 
     // Clean up dynamically allocated objects
     delete touchCommand;
+    delete lsCommand;
+    delete rmCommand;
     delete fileFactory;
     delete fileSystem;
     delete commandPrompt;
