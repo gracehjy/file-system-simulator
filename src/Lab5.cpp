@@ -4,7 +4,7 @@
 #include "mockos/CommandPrompt.h"
 #include "mockos/LSCommand.h"
 #include "mockos/RemoveCommand.h"
-
+#include "mockos/CatCommand.h"
 #include <iostream>
 using namespace std;
 
@@ -15,7 +15,7 @@ int main(){
     TouchCommand* touchCommand = new TouchCommand(fileSystem, fileFactory);
     LSCommand* lsCommand = new LSCommand(fileSystem, fileFactory);
     RemoveCommand* rmCommand = new RemoveCommand(fileSystem, fileFactory);
-
+    CatCommand* catCommand = new CatCommand(fileSystem, fileFactory);
     // create a variable of type CommandPrompt and configure it with the above created objects
     CommandPrompt* commandPrompt = new CommandPrompt();
     commandPrompt->setFileFactory(fileFactory);
@@ -23,6 +23,7 @@ int main(){
     commandPrompt->addCommand("touch", touchCommand);
     commandPrompt->addCommand("ls", lsCommand);
     commandPrompt->addCommand("rm", rmCommand);
+    commandPrompt->addCommand("cat", catCommand);
     // call run() on the commandPrompt object
     commandPrompt->run();
 

@@ -14,7 +14,7 @@ LSCommand::~LSCommand(){}
 // tells the user how to invoke the ls command and describes the command
 void LSCommand::displayInfo() {
     cout << "ls displays the names of all files currently in the file system." << endl;
-    cout << "ls -m displays each file nam along with the metadata associated with each file." << endl;
+    cout << "ls -m displays each file name along with the metadata associated with each file." << endl;
 }
 
 // displays the names of all files currently in the file system

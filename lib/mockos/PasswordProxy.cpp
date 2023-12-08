@@ -72,7 +72,7 @@ string PasswordProxy::getName() {
     return file->getName();
 }
 
-// calls accept on the file if the password entered by the user is correct
+// calls accept on the file if the password entered by the user is correcthelp
 void PasswordProxy::accept(AbstractFileVisitor *visitor) {
     string pw = passwordPrompt();
     bool isCorrect = passwordMatch(pw);
