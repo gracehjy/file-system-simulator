@@ -2,19 +2,22 @@
 #include "mockos/ImageFile.h"
 #include "mockos/TextFile.h"
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
 // visit the image file and read/output each index
 void BasicDisplayVisitor::visit_ImageFile(ImageFile *file) {
-    for(int row = file->imageSize - 1; row >= 0; row--){
-        for(int col = 0; col < file->imageSize; col++){
-            unsigned int index = file->imageSize*row + col;
-            cout << file->read()[index];
+    vector<char> content = file->read();
+    int area = file->getSize();
+    int size = sqrt(area);
+
+    for(int index = 0; index < area; index++){
+        cout << content[index];
+        if((index+1) % size == 0){
+            cout << endl;
         }
-        cout << endl;
     }
-    cout << endl;
 }
 
 // visit the text file and read/output each character
