@@ -13,11 +13,12 @@ CatCommand::~CatCommand(){}
 
 // tells the user how to invoke the cat command and describes the command
 void CatCommand::displayInfo() {
-    cout << "cat is a utility that is useful for concatenating files; it can also be used to write to a file." << endl;
-    cout << "cat can be with the command: cat <filename> [-a]" << endl;
+    cout << "Cat is a utility that is useful for concatenating files; it can also be used to write to a file." << endl;
+    cout << "Cat can be invoked with the command: cat <filename> [-a]" << endl;
     cout << "-a will display the current contents of the file and append new content to it." << endl;
 }
 
+// executes the cat command
 int CatCommand::execute(std::string file) {
     // check if -a was used after a fileName
     istringstream iss(file);
@@ -30,7 +31,7 @@ int CatCommand::execute(std::string file) {
     AbstractFile* theFile = fileSystem->openFile(fileName);
 
     // make sure file exists
-    if(theFile != nullptr){
+    if(theFile){
         if(a == "-a"){
             // print out the current contents of the file
             BasicDisplayVisitor basicDisplayVisitor;

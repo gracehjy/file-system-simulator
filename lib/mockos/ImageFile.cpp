@@ -43,7 +43,7 @@ int ImageFile::append(vector<char> additionalContent) {
 }
 
 // read the image file
-std::vector<char> ImageFile::read() {
+vector<char> ImageFile::read() {
     return fileContents;
 }
 
