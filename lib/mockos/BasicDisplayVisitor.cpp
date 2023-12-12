@@ -12,9 +12,11 @@ void BasicDisplayVisitor::visit_ImageFile(ImageFile *file) {
     int area = file->getSize();
     int size = sqrt(area);
 
+
     for(int index = 0; index < area; index++){
         cout << content[index];
-        if((index+1) % size == 0){
+        int nextIndex = index + 1;
+        if(nextIndex % size == 0){
             cout << endl;
         }
     }

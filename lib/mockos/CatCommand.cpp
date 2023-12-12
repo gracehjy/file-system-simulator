@@ -64,8 +64,8 @@ int CatCommand::execute(std::string file) {
             }
             // if neither are entered, temporarily save the data
             newData.insert(newData.end(), input.begin(), input.end());
-            newData.push_back('\n');
         }
+        newData.push_back('\n');
         fileSystem->closeFile(theFile);
         return success;
     }

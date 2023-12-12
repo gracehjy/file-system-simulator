@@ -18,21 +18,26 @@ string ImageFile::getName() {
 
 // write a vector of characters to the image file
 int ImageFile::write(vector<char> contents) {
-    imageSize = contents.back() - '0';
+    // get the size of the vector
+    int t = contents[contents.size() - 1] - '0';
 
     // check for size mismatch
-    if(imageSize * imageSize != contents.size() - 1){
+    if(t * t != contents.size() - 1){
+        fileContents.clear();
+        imageSize = '0';
         return size_mismatch;
     }
 
+    fileContents.clear();
+
     // push each valid char in the vector into fileContents
     for(int i = 0; i < contents.size() - 1; i++){
-        fileContents.push_back(contents[i]);
-        if(fileContents[i] != 'X' && fileContents[i] != ' '){
+        if(contents[i] != 'X' && contents[i] != ' '){
             fileContents.clear();
-            imageSize = 0;
+            imageSize = '0';
             return invalid_chars;
         }
+        fileContents.push_back(contents[i]);
     }
     return success;
 }
