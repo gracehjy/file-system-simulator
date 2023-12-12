@@ -6,8 +6,8 @@
 using namespace std;
 
 // construct using member initialization
-CopyCommand::CopyCommand(AbstractFileSystem *fileSystem, AbstractFileFactory *fileFactory):
-fileSystem(fileSystem), fileFactory(fileFactory){}
+CopyCommand::CopyCommand(AbstractFileSystem *fileSystem):
+fileSystem(fileSystem){}
 
 // destructor
 CopyCommand::~CopyCommand(){};

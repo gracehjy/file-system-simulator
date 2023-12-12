@@ -4,8 +4,8 @@
 using namespace std;
 
 // constructor using member initialization list
-RemoveCommand::RemoveCommand(AbstractFileSystem *fileSystem, AbstractFileFactory *fileFactory):
-fileSystem(fileSystem), fileFactory(fileFactory){}
+RemoveCommand::RemoveCommand(AbstractFileSystem *fileSystem):
+fileSystem(fileSystem){}
 
 //destructor
 RemoveCommand::~RemoveCommand(){}
@@ -19,8 +19,8 @@ int RemoveCommand::execute(std::string file) {
     set<string> fileNames = fileSystem->getFileNames();
     // if the file exists in the system, remove it
     if(fileNames.find(file) != fileNames.end()){
-        fileSystem->deleteFile(file);
-        return success;
+        int returnVal = fileSystem->deleteFile(file);
+        return returnVal;
     }
     return rm_command_failed;
 }

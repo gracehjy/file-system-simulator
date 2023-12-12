@@ -15,11 +15,11 @@ int main(){
     SimpleFileSystem* fileSystem = new SimpleFileSystem();
     SimpleFileFactory* fileFactory = new SimpleFileFactory();
     TouchCommand* touchCommand = new TouchCommand(fileSystem, fileFactory);
-    LSCommand* lsCommand = new LSCommand(fileSystem, fileFactory);
-    RemoveCommand* rmCommand = new RemoveCommand(fileSystem, fileFactory);
-    CatCommand* catCommand = new CatCommand(fileSystem, fileFactory);
-    DisplayCommand* dsCommand = new DisplayCommand(fileSystem, fileFactory);
-    CopyCommand* cpCommand = new CopyCommand(fileSystem, fileFactory);
+    LSCommand* lsCommand = new LSCommand(fileSystem);
+    RemoveCommand* rmCommand = new RemoveCommand(fileSystem);
+    CatCommand* catCommand = new CatCommand(fileSystem);
+    DisplayCommand* dsCommand = new DisplayCommand(fileSystem);
+    CopyCommand* cpCommand = new CopyCommand(fileSystem);
 
     // create a variable of type CommandPrompt and configure it with the above created objects
     CommandPrompt* commandPrompt = new CommandPrompt();

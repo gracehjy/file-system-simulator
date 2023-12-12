@@ -8,7 +8,7 @@ private:
     AbstractFileSystem* fileSystem;
     AbstractFileFactory* fileFactory;
 public:
-    LSCommand(AbstractFileSystem* fileSystem, AbstractFileFactory* fileFactory);
+    LSCommand(AbstractFileSystem* fileSystem);
     ~LSCommand();
     virtual void displayInfo() override;
     virtual int execute(std::string file) override;

@@ -6,7 +6,7 @@
 using namespace std;
 
 // constructor using member initialization
-LSCommand::LSCommand(AbstractFileSystem *fileSystem, AbstractFileFactory* fileFactory): fileSystem(fileSystem), fileFactory(fileFactory) {}
+LSCommand::LSCommand(AbstractFileSystem *fileSystem): fileSystem(fileSystem){}
 
 // destructor
 LSCommand::~LSCommand(){}

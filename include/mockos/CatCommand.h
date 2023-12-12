@@ -8,7 +8,7 @@ private:
     AbstractFileSystem* fileSystem;
     AbstractFileFactory* fileFactory;
 public:
-    CatCommand(AbstractFileSystem* fileSystem, AbstractFileFactory* fileFactory);
+    CatCommand(AbstractFileSystem* fileSystem);
     ~CatCommand();
     virtual void displayInfo() override;
     virtual int execute(std::string file) override;

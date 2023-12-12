@@ -6,7 +6,7 @@
 using namespace std;
 
 // constructor using member initialization
-DisplayCommand::DisplayCommand(AbstractFileSystem *fileSystem, AbstractFileFactory *fileFactory): fileSystem(fileSystem), fileFactory(fileFactory) {}
+DisplayCommand::DisplayCommand(AbstractFileSystem *fileSystem): fileSystem(fileSystem) {}
 
 // destructor
 DisplayCommand::~DisplayCommand(){}

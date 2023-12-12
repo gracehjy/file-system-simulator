@@ -8,7 +8,7 @@ private:
     AbstractFileSystem* fileSystem;
     AbstractFileFactory* fileFactory;
 public:
-    DisplayCommand(AbstractFileSystem* fileSystem, AbstractFileFactory* fileFactory);
+    DisplayCommand(AbstractFileSystem* fileSystem);
     ~DisplayCommand();
     virtual void displayInfo() override;
     virtual int execute(std::string file) override;

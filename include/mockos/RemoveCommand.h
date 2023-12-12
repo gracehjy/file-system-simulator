@@ -8,7 +8,7 @@ private:
     AbstractFileSystem* fileSystem;
     AbstractFileFactory* fileFactory;
 public:
-    RemoveCommand(AbstractFileSystem* fileSystem, AbstractFileFactory* fileFactory);
+    RemoveCommand(AbstractFileSystem* fileSystem);
     ~RemoveCommand();
     virtual void displayInfo() override;
     virtual int execute(std::string file) override;

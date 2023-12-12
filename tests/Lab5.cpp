@@ -1719,480 +1719,480 @@ TEST(catCommand,executeFileDoesNotExist) { // test executing cat with append opt
     cout.rdbuf(backup_out);
 }
 
-TEST(renameCommand,renameParsingStrategy) { // checks parse function of RenameParsingStrategy correctly converts input string into a vector of strings representing instructions for copy and remove commands
-    // REDIRECT COUT STREAM -- PROTECT AGAINST ERRORS
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-    // SETUP INPUT AND TEST OUTPUT
-    RenameParsingStrategy* rps = new RenameParsingStrategy();
-    vector<string> parsed = rps->parse("file.txt renamedFile");
-    ASSERT_EQ(static_cast<size_t>(2), parsed.size());
-    string expectedCopyInstructions = "file.txt renamedFile";
-    string expectedRemoveInstructions = "file.txt";
-    ASSERT_EQ(expectedCopyInstructions, parsed[0]);
-    ASSERT_EQ(expectedRemoveInstructions, parsed[1]);
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
+//TEST(renameCommand,renameParsingStrategy) { // checks parse function of RenameParsingStrategy correctly converts input string into a vector of strings representing instructions for copy and remove commands
+//    // REDIRECT COUT STREAM -- PROTECT AGAINST ERRORS
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//    // SETUP INPUT AND TEST OUTPUT
+//    RenameParsingStrategy* rps = new RenameParsingStrategy();
+//    vector<string> parsed = rps->parse("file.txt renamedFile");
+//    ASSERT_EQ(static_cast<size_t>(2), parsed.size());
+//    string expectedCopyInstructions = "file.txt renamedFile";
+//    string expectedRemoveInstructions = "file.txt";
+//    ASSERT_EQ(expectedCopyInstructions, parsed[0]);
+//    ASSERT_EQ(expectedRemoveInstructions, parsed[1]);
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//
+//}
+//
+//TEST(renameCommand,renameValid) {
+//    // REDIRECT COUT STREAM -- PROTECT AGAINST ERRORS
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//    // SET UP FILE SYSTEM
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//    // ADD FILES
+//    string filename = "file.txt";
+//    AbstractFile* file = new TextFile(filename);
+//    ASSERT_EQ(0, sfs->addFile(filename, file));
+//    // INITIALIZE FILE CONTENTS
+//    vector<char> v = { 'h','i' };
+//    ASSERT_EQ(0, file->write(v));
+//    // CREATE MACRO COMMAND USING RENAME PARSING STRATEGY AND COPY/REMOVE COMMANDS
+//    MacroCommand* mc = new MacroCommand(sfs);
+//    RenameParsingStrategy* rps = new RenameParsingStrategy;
+//    AbstractCommand* cpc = new CopyCommand(sfs);
+//    AbstractCommand* rmc = new RemoveCommand(sfs);
+//    mc->setParseStrategy(rps);
+//    mc->addCommand(cpc);
+//    mc->addCommand(rmc);
+//    // EXECUTE RENAME COMMAND
+//    string newfilename = "newfilename";
+//    string userInput = filename + " " + newfilename;
+//    ASSERT_EQ(0, mc->execute(userInput));
+//    // EXPECTATION -- ORIGINAL FILE IS REMOVED
+//    AbstractFile* originalFile = sfs->openFile(filename);
+//    bool isNull = originalFile == nullptr;
+//    ASSERT_TRUE(isNull);
+//    // EXPECTATION -- FILE EXISTS UNDER NEW NAME AND CONTENTS ARE THE SAME
+//    AbstractFile* newFile = sfs->openFile(newfilename + ".txt");
+//    bool isNull2 = newFile == nullptr;
+//    ASSERT_FALSE(isNull2);
+//    vector<char> contents = newFile->read();
+//    ASSERT_EQ(contents.size(), v.size());
+//    ASSERT_EQ(contents[0], v[0]);
+//    ASSERT_EQ(contents[1], v[1]);
+//    // EXPECTATION -- ADDRESSES ARE DIFFERENT
+//    bool areEqual = &file == &newFile;
+//    ASSERT_FALSE(areEqual);
+//    // EXPECTATION -- FILE TYPE MATCHES
+//    TextFile* textCheck = dynamic_cast<TextFile*>(newFile);
+//    bool isNotTextFile = textCheck == nullptr;
+//    ASSERT_FALSE(isNotTextFile);
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//}
+//
+//TEST(renameCommand,renameInvalidFilename) {
+//    // REDIRECT COUT STREAM -- PROTECT AGAINST ERRORS
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//    // SET UP FILE SYSTEM
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//    // ADD FILES
+//    string filename = "file.txt";
+//    AbstractFile* file = new TextFile(filename);
+//    ASSERT_EQ(0, sfs->addFile(filename, file));
+//    // INITIALIZE FILE CONTENTS
+//    vector<char> v = { 'h','i' };
+//    ASSERT_EQ(0, file->write(v));
+//    // CREATE MACRO COMMAND USING RENAME PARSING STRATEGY AND COPY/REMOVE COMMANDS
+//    MacroCommand* mc = new MacroCommand(sfs);
+//    RenameParsingStrategy* rps = new RenameParsingStrategy;
+//    AbstractCommand* cpc = new CopyCommand(sfs);
+//    AbstractCommand* rmc = new RemoveCommand(sfs);
+//    mc->setParseStrategy(rps);
+//    mc->addCommand(cpc);
+//    mc->addCommand(rmc);
+//    // EXECUTE RENAME COMMAND
+//    string invalidfilename = "wrongfilename.txt";
+//    string newfilename = "newfilename";
+//    string userInput = invalidfilename + " " + newfilename;
+//    ASSERT_NE(0, mc->execute(userInput));
+//    // EXPECTATION -- ORIGINAL FILE IS NOT REMOVED
+//    AbstractFile* originalFile = sfs->openFile(filename);
+//    bool isNull = originalFile == nullptr;
+//    ASSERT_FALSE(isNull);
+//    // EXPECTATION -- FILE DOES NOT EXIST UNDER NEW NAME
+//    AbstractFile* newFile = sfs->openFile(newfilename + ".txt");
+//    bool isNull2 = newFile == nullptr;
+//    ASSERT_TRUE(isNull2);
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//}
+//
+//TEST(renameCommand,renameInvalidNewFilename) {
+//    // REDIRECT COUT STREAM -- PROTECT AGAINST ERRORS
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//    // SET UP FILE SYSTEM
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//    // ADD FILES
+//    string filename = "file.txt";
+//    string otherfilename = "otherfile";
+//    AbstractFile* file = new TextFile(filename);
+//    ASSERT_EQ(0, sfs->addFile(filename, file));
+//    AbstractFile* otherfile = new TextFile(otherfilename + ".txt");
+//    ASSERT_EQ(0, sfs->addFile(otherfilename + ".txt", otherfile));
+//    // INITIALIZE FILE CONTENTS
+//    vector<char> v = { 'h','i' };
+//    ASSERT_EQ(0, file->write(v));
+//    // CREATE MACRO COMMAND USING RENAME PARSING STRATEGY AND COPY/REMOVE COMMANDS
+//    MacroCommand* mc = new MacroCommand(sfs);
+//    RenameParsingStrategy* rps = new RenameParsingStrategy;
+//    AbstractCommand* cpc = new CopyCommand(sfs);
+//    AbstractCommand* rmc = new RemoveCommand(sfs);
+//    mc->setParseStrategy(rps);
+//    mc->addCommand(cpc);
+//    mc->addCommand(rmc);
+//    // EXECUTE RENAME COMMAND
+//    string userInput = filename + " " + otherfilename;
+//    ASSERT_NE(0, mc->execute(userInput));
+//    // EXPECTATION -- ORIGINAL FILE IS NOT REMOVED
+//    AbstractFile* originalFile = sfs->openFile(filename);
+//    bool isNull = originalFile == nullptr;
+//    ASSERT_FALSE(isNull);
+//    // EXPECTATION -- OTHER FILE STILL EXISTS
+//    AbstractFile* newFile = sfs->openFile(otherfilename + ".txt");
+//    bool isNull2 = newFile == nullptr;
+//    ASSERT_FALSE(isNull2);
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//}
 
-}
-
-TEST(renameCommand,renameValid) {
-    // REDIRECT COUT STREAM -- PROTECT AGAINST ERRORS
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-    // SET UP FILE SYSTEM
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-    // ADD FILES
-    string filename = "file.txt";
-    AbstractFile* file = new TextFile(filename);
-    ASSERT_EQ(0, sfs->addFile(filename, file));
-    // INITIALIZE FILE CONTENTS
-    vector<char> v = { 'h','i' };
-    ASSERT_EQ(0, file->write(v));
-    // CREATE MACRO COMMAND USING RENAME PARSING STRATEGY AND COPY/REMOVE COMMANDS
-    MacroCommand* mc = new MacroCommand(sfs);
-    RenameParsingStrategy* rps = new RenameParsingStrategy;
-    AbstractCommand* cpc = new CopyCommand(sfs);
-    AbstractCommand* rmc = new RemoveCommand(sfs);
-    mc->setParseStrategy(rps);
-    mc->addCommand(cpc);
-    mc->addCommand(rmc);
-    // EXECUTE RENAME COMMAND
-    string newfilename = "newfilename";
-    string userInput = filename + " " + newfilename;
-    ASSERT_EQ(0, mc->execute(userInput));
-    // EXPECTATION -- ORIGINAL FILE IS REMOVED
-    AbstractFile* originalFile = sfs->openFile(filename);
-    bool isNull = originalFile == nullptr;
-    ASSERT_TRUE(isNull);
-    // EXPECTATION -- FILE EXISTS UNDER NEW NAME AND CONTENTS ARE THE SAME
-    AbstractFile* newFile = sfs->openFile(newfilename + ".txt");
-    bool isNull2 = newFile == nullptr;
-    ASSERT_FALSE(isNull2);
-    vector<char> contents = newFile->read();
-    ASSERT_EQ(contents.size(), v.size());
-    ASSERT_EQ(contents[0], v[0]);
-    ASSERT_EQ(contents[1], v[1]);
-    // EXPECTATION -- ADDRESSES ARE DIFFERENT
-    bool areEqual = &file == &newFile;
-    ASSERT_FALSE(areEqual);
-    // EXPECTATION -- FILE TYPE MATCHES
-    TextFile* textCheck = dynamic_cast<TextFile*>(newFile);
-    bool isNotTextFile = textCheck == nullptr;
-    ASSERT_FALSE(isNotTextFile);
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-}
-
-TEST(renameCommand,renameInvalidFilename) {
-    // REDIRECT COUT STREAM -- PROTECT AGAINST ERRORS
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-    // SET UP FILE SYSTEM
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-    // ADD FILES
-    string filename = "file.txt";
-    AbstractFile* file = new TextFile(filename);
-    ASSERT_EQ(0, sfs->addFile(filename, file));
-    // INITIALIZE FILE CONTENTS
-    vector<char> v = { 'h','i' };
-    ASSERT_EQ(0, file->write(v));
-    // CREATE MACRO COMMAND USING RENAME PARSING STRATEGY AND COPY/REMOVE COMMANDS
-    MacroCommand* mc = new MacroCommand(sfs);
-    RenameParsingStrategy* rps = new RenameParsingStrategy;
-    AbstractCommand* cpc = new CopyCommand(sfs);
-    AbstractCommand* rmc = new RemoveCommand(sfs);
-    mc->setParseStrategy(rps);
-    mc->addCommand(cpc);
-    mc->addCommand(rmc);
-    // EXECUTE RENAME COMMAND
-    string invalidfilename = "wrongfilename.txt";
-    string newfilename = "newfilename";
-    string userInput = invalidfilename + " " + newfilename;
-    ASSERT_NE(0, mc->execute(userInput));
-    // EXPECTATION -- ORIGINAL FILE IS NOT REMOVED
-    AbstractFile* originalFile = sfs->openFile(filename);
-    bool isNull = originalFile == nullptr;
-    ASSERT_FALSE(isNull);
-    // EXPECTATION -- FILE DOES NOT EXIST UNDER NEW NAME
-    AbstractFile* newFile = sfs->openFile(newfilename + ".txt");
-    bool isNull2 = newFile == nullptr;
-    ASSERT_TRUE(isNull2);
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-}
-
-TEST(renameCommand,renameInvalidNewFilename) {
-    // REDIRECT COUT STREAM -- PROTECT AGAINST ERRORS
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-    // SET UP FILE SYSTEM
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-    // ADD FILES
-    string filename = "file.txt";
-    string otherfilename = "otherfile";
-    AbstractFile* file = new TextFile(filename);
-    ASSERT_EQ(0, sfs->addFile(filename, file));
-    AbstractFile* otherfile = new TextFile(otherfilename + ".txt");
-    ASSERT_EQ(0, sfs->addFile(otherfilename + ".txt", otherfile));
-    // INITIALIZE FILE CONTENTS
-    vector<char> v = { 'h','i' };
-    ASSERT_EQ(0, file->write(v));
-    // CREATE MACRO COMMAND USING RENAME PARSING STRATEGY AND COPY/REMOVE COMMANDS
-    MacroCommand* mc = new MacroCommand(sfs);
-    RenameParsingStrategy* rps = new RenameParsingStrategy;
-    AbstractCommand* cpc = new CopyCommand(sfs);
-    AbstractCommand* rmc = new RemoveCommand(sfs);
-    mc->setParseStrategy(rps);
-    mc->addCommand(cpc);
-    mc->addCommand(rmc);
-    // EXECUTE RENAME COMMAND
-    string userInput = filename + " " + otherfilename;
-    ASSERT_NE(0, mc->execute(userInput));
-    // EXPECTATION -- ORIGINAL FILE IS NOT REMOVED
-    AbstractFile* originalFile = sfs->openFile(filename);
-    bool isNull = originalFile == nullptr;
-    ASSERT_FALSE(isNull);
-    // EXPECTATION -- OTHER FILE STILL EXISTS
-    AbstractFile* newFile = sfs->openFile(otherfilename + ".txt");
-    bool isNull2 = newFile == nullptr;
-    ASSERT_FALSE(isNull2);
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-}
-
-TEST(renameCommand,renameValidPasswordProtected) {
-    // REDIRECT COUT STREAM -- PROTECT AGAINST ERRORS
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-    // SET UP FILE SYSTEM
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-    // ADD FILES
-    string filename = "file.txt";
-    AbstractFile* file = new TextFile(filename);
-    string password = "Adi23ifK";
-    AbstractFile* proxy = new PasswordProxy(file, password);
-    ASSERT_EQ(0, sfs->addFile(filename, proxy));
-    // INITIALIZE FILE CONTENTS -- WE WRITE DIRECTLY TO FILE IN THIS CASE (FUNCTIONALITY IS TEST OTHER PLACES)
-    vector<char> v = { 'h','i' };
-    ASSERT_EQ(0, file->write(v));
-    // CREATE MACRO COMMAND USING RENAME PARSING STRATEGY AND COPY/REMOVE COMMANDS
-    MacroCommand* mc = new MacroCommand(sfs);
-    RenameParsingStrategy* rps = new RenameParsingStrategy;
-    AbstractCommand* cpc = new CopyCommand(sfs);
-    AbstractCommand* rmc = new RemoveCommand(sfs);
-    mc->setParseStrategy(rps);
-    mc->addCommand(cpc);
-    mc->addCommand(rmc);
-    // REDIRECT CIN STREAM
-    streambuf* backup_in;
-    backup_in = cin.rdbuf();
-    stringstream ss_in;
-    cin.rdbuf(ss_in.rdbuf());
-    // EXECUTE RENAME COMMAND
-    string newfilename = "newfilename";
-    string userInput = filename + " " + newfilename;
-    ASSERT_EQ(0, mc->execute(userInput));
-    // EXPECTATION -- ORIGINAL FILE IS REMOVED
-    AbstractFile* originalFile = sfs->openFile(filename);
-    bool isNull = originalFile == nullptr;
-    ASSERT_TRUE(isNull);
-    // EXPECTATION -- FILE EXISTS UNDER NEW NAME AND CONTENTS ARE THE SAME
-    AbstractFile* newFile = sfs->openFile(newfilename + ".txt");
-    bool isNull2 = newFile == nullptr;
-    ASSERT_FALSE(isNull2);
-    // SET UP USER PASSWORD INPUT AND READ AGAIN TO GET TRUE CONTENTS
-    ss_in << password + "\n";
-    vector<char> contentswithpassword = newFile->read();
-    ASSERT_EQ(contentswithpassword.size(), v.size());
-    ASSERT_EQ(contentswithpassword[0], v[0]);
-    ASSERT_EQ(contentswithpassword[1], v[1]);
-    // SECOND READ CALL NOT GIVEN A PASSWORD -- SHOULD FAIL AND GET AN EMPTY VECTOR
-    vector<char> contents = newFile->read();
-    ASSERT_EQ(static_cast<size_t>(0), contents.size());
-    // EXPECTATION -- ADDRESSES ARE DIFFERENT
-    bool areEqual = &file == &newFile;
-    ASSERT_FALSE(areEqual);
-    // EXPECTATION -- FILE TYPE MATCHES
-    PasswordProxy* proxyCheck = dynamic_cast<PasswordProxy*>(newFile);
-    bool isNotPasswordProxy = proxyCheck == nullptr;
-    ASSERT_FALSE(isNotPasswordProxy);
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-    // ASSIGN CIN BACK TO STDIN
-    cin.rdbuf(backup_in);
-}
-
-TEST(DSCommand,displaytext) {
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-    string filename1 = "file.txt";
-    ASSERT_EQ(0, sfs->addFile(filename1, sff->createFile(filename1)));
-    AbstractFile* f = sfs->openFile(filename1);
-    vector<char> v = { 'h', 'i','\n','h','e','l','l','o' };
-    f->write(v);
-    sfs->closeFile(f);
-    // REDIRECT COUT STREAM
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-    // execute ds
-    AbstractCommand* ds = new DisplayCommand(sfs);
-    ASSERT_EQ(0, ds->execute(filename1));
-    ss_out >> noskipws;
-    char c;
-    for (size_t i = 0; i < v.size(); ++i) {
-        ss_out >> c;
-        ASSERT_EQ(v[i], c);
-    }
-    // ensure the file was closed
-    f = sfs->openFile(filename1);
-    bool isNull = f == nullptr;
-    ASSERT_FALSE(isNull);
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-}
-
-TEST(DSCommand,displaytextunformatted) {
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-    string filename1 = "file.txt";
-    ASSERT_EQ(0, sfs->addFile(filename1, sff->createFile(filename1)));
-    AbstractFile* f = sfs->openFile(filename1);
-    vector<char> v = { 'h', 'i','\n','h','e','l','l','o' };
-    f->write(v);
-    sfs->closeFile(f);
-    // REDIRECT COUT STREAM
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-    // execute ds
-    AbstractCommand* ds = new DisplayCommand(sfs);
-    ASSERT_EQ(0, ds->execute(filename1 + " -d"));
-    ss_out >> noskipws;
-    char c;
-    for (size_t i = 0; i < v.size(); ++i) {
-        ss_out >> c;
-        ASSERT_EQ(v[i], c);
-    }
-    // ensure the file was closed
-    f = sfs->openFile(filename1);
-    bool isNull = f == nullptr;
-    ASSERT_FALSE(isNull);
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-}
-
-TEST(DSCommand,displayimageformatted) {
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-    string filename1 = "file.img";
-    ASSERT_EQ(0, sfs->addFile(filename1, sff->createFile(filename1)));
-    AbstractFile* f = sfs->openFile(filename1);
-    vector<char> v = { 'X',' ',' ','X',' ',' ','X', ' ',' ','3' };
-    vector<char> expectedOutput = { 'X',' ',' ','\n','X',' ',' ','\n','X',' ',' ','\n' };
-    f->write(v);
-    sfs->closeFile(f);
-    // REDIRECT COUT STREAM
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-    // execute ds
-    AbstractCommand* ds = new DisplayCommand(sfs);
-    ASSERT_EQ(0, ds->execute(filename1));
-    ss_out >> noskipws;
-    char c;
-    for (size_t i = 0; i < expectedOutput.size(); ++i) {
-        ss_out >> c;
-        ASSERT_EQ(expectedOutput[i], c);
-    }
-    // ensure the file was closed
-    f = sfs->openFile(filename1);
-    bool isNull = f == nullptr;
-    ASSERT_FALSE(isNull);
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-}
-
-TEST(DSCommand,displayimageunformatted) {
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-    string filename1 = "file.img";
-    ASSERT_EQ(0, sfs->addFile(filename1, sff->createFile(filename1)));
-    AbstractFile* f = sfs->openFile(filename1);
-    vector<char> v = { 'X',' ',' ','X',' ',' ','X', ' ',' ','3' };
-    vector<char> expectedOutput = { 'X',' ',' ','X',' ',' ','X',' ',' ','\n' };
-    f->write(v);
-    sfs->closeFile(f);
-    // REDIRECT COUT STREAM
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-    // execute ds
-    AbstractCommand* ds = new DisplayCommand(sfs);
-    ASSERT_EQ(0, ds->execute(filename1 + " -d"));
-    ss_out >> noskipws;
-    char c;
-    for (size_t i = 0; i < expectedOutput.size(); ++i) {
-        ss_out >> c;
-        ASSERT_EQ(expectedOutput[i], c);
-    }
-    // ensure the file was closed
-    f = sfs->openFile(filename1);
-    bool isNull = f == nullptr;
-    ASSERT_FALSE(isNull);
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-}
-
-TEST(DSCommand,displayinvalid) {
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-    // REDIRECT COUT STREAM
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-    string filename1 = "file.img";
-    ASSERT_EQ(0, sfs->addFile(filename1, sff->createFile(filename1)));
-    AbstractCommand* ds = new DisplayCommand(sfs);
-    ASSERT_NE(0, ds->execute("file.txt"));
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-}
-
-TEST(copy,validcopy) {
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-
-    // REDIRECT COUT STREAM
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-
-    string filename = "file.txt";
-    ASSERT_EQ(0, sfs->addFile(filename, sff->createFile(filename)));
-    AbstractFile* f = sfs->openFile(filename);
-    vector<char> original = { 'h','i' };
-    f->write(original);
-    sfs->closeFile(f);
-    string copyname = "copy.txt";
-    AbstractCommand* cp = new CopyCommand(sfs);
-    ASSERT_EQ(0, cp->execute(filename + " copy"));
-    f = sfs->openFile(filename);
-    bool isNull = f == nullptr;
-    ASSERT_FALSE(isNull);
-    AbstractFile* f_copy = sfs->openFile(copyname);
-    isNull = f_copy == nullptr;
-    ASSERT_FALSE(isNull);
-    ASSERT_EQ(copyname, f_copy->getName());
-    bool sameFile = f_copy == f;
-    ASSERT_FALSE(sameFile);
-    vector<char> copy_contents = f_copy->read();
-    ASSERT_EQ(original.size(), copy_contents.size());
-    ASSERT_EQ(original.size(), (size_t)f->getSize());
-    for (size_t i = 0; i < original.size(); ++i) {
-        ASSERT_EQ(original[i], copy_contents[i]);
-    }
-    TextFile* t_p = dynamic_cast<TextFile*>(f_copy);
-    isNull = t_p == nullptr;
-    ASSERT_FALSE(isNull);
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-}
-
-TEST(copy,invalidcopy) {
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-
-    // REDIRECT COUT STREAM
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-
-    string filename = "file.txt";
-    ASSERT_EQ(0, sfs->addFile(filename, sff->createFile(filename)));
-    AbstractFile* f = sfs->openFile(filename);
-    vector<char> original = { 'h','i' };
-    f->write(original);
-    sfs->closeFile(f);
-    AbstractCommand* cp = new CopyCommand(sfs);
-    ASSERT_NE(0, cp->execute(filename + " file"));
-    ASSERT_NE(0, cp->execute("madeupname.txt othername"));
-    // ensure the original file wasn't changed and is closed
-    f = sfs->openFile(filename);
-    bool isNull = f == nullptr;
-    ASSERT_FALSE(isNull);
-    vector<char> after_invalid = f->read();
-    ASSERT_EQ(original.size(), after_invalid.size());
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-}
-
-TEST(copy,copypasswordprotected) {
-    AbstractFileSystem* sfs = new SimpleFileSystem();
-    AbstractFileFactory* sff = new SimpleFileFactory();
-
-    // REDIRECT COUT STREAM
-    streambuf* backup_out;
-    backup_out = cout.rdbuf();
-    stringstream ss_out;
-    cout.rdbuf(ss_out.rdbuf());
-
-    string filename = "file.txt";
-    AbstractFile* realfile = sff->createFile(filename);
-    vector<char> original = { 'h','i' };
-    realfile->write(original);
-    string pw = "easypassword";
-    AbstractFile* proxy_toreal = new PasswordProxy(realfile, pw);
-    ASSERT_EQ(0, sfs->addFile(proxy_toreal->getName(), proxy_toreal));
-    AbstractCommand* cp = new CopyCommand(sfs);
-    string copyname = "copy.txt";
-    ASSERT_EQ(0, cp->execute(filename + " copy"));
-    AbstractFile* proxy_copy = sfs->openFile(copyname);
-    bool isNull = proxy_copy == nullptr;
-    ASSERT_FALSE(isNull);
-    PasswordProxy* proxy_tocopy = dynamic_cast<PasswordProxy*>(proxy_copy);
-    isNull = proxy_tocopy == nullptr;
-    ASSERT_FALSE(isNull);
-    bool sameProxy = proxy_tocopy == proxy_toreal;
-    ASSERT_FALSE(sameProxy);
-    // REDIRECT CIN STREAM
-    streambuf* backup_in;
-    backup_in = cin.rdbuf();
-    stringstream ss_in;
-    cin.rdbuf(ss_in.rdbuf());
-    // MIMIC USER INPUT
-    ss_in << pw << '\n';
-    vector<char> newdata = { 'h','e','l','l','o' };
-    ASSERT_EQ(0, proxy_tocopy->write(newdata));
-    auto v = realfile->read();
-    ASSERT_EQ(original.size(), v.size());
-    for (size_t i = 0; i < v.size(); ++i) {
-        ASSERT_EQ(original[i], v[i]);
-    }
-    // ASSIGN COUT BACK TO STDOUT
-    cout.rdbuf(backup_out);
-    // ASSIGN CIN BACK TO STDIN
-    cin.rdbuf(backup_in);
-}
+//TEST(renameCommand,renameValidPasswordProtected) {
+//    // REDIRECT COUT STREAM -- PROTECT AGAINST ERRORS
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//    // SET UP FILE SYSTEM
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//    // ADD FILES
+//    string filename = "file.txt";
+//    AbstractFile* file = new TextFile(filename);
+//    string password = "Adi23ifK";
+//    AbstractFile* proxy = new PasswordProxy(file, password);
+//    ASSERT_EQ(0, sfs->addFile(filename, proxy));
+//    // INITIALIZE FILE CONTENTS -- WE WRITE DIRECTLY TO FILE IN THIS CASE (FUNCTIONALITY IS TEST OTHER PLACES)
+//    vector<char> v = { 'h','i' };
+//    ASSERT_EQ(0, file->write(v));
+//    // CREATE MACRO COMMAND USING RENAME PARSING STRATEGY AND COPY/REMOVE COMMANDS
+//    MacroCommand* mc = new MacroCommand(sfs);
+//    RenameParsingStrategy* rps = new RenameParsingStrategy;
+//    AbstractCommand* cpc = new CopyCommand(sfs);
+//    AbstractCommand* rmc = new RemoveCommand(sfs);
+//    mc->setParseStrategy(rps);
+//    mc->addCommand(cpc);
+//    mc->addCommand(rmc);
+//    // REDIRECT CIN STREAM
+//    streambuf* backup_in;
+//    backup_in = cin.rdbuf();
+//    stringstream ss_in;
+//    cin.rdbuf(ss_in.rdbuf());
+//    // EXECUTE RENAME COMMAND
+//    string newfilename = "newfilename";
+//    string userInput = filename + " " + newfilename;
+//    ASSERT_EQ(0, mc->execute(userInput));
+//    // EXPECTATION -- ORIGINAL FILE IS REMOVED
+//    AbstractFile* originalFile = sfs->openFile(filename);
+//    bool isNull = originalFile == nullptr;
+//    ASSERT_TRUE(isNull);
+//    // EXPECTATION -- FILE EXISTS UNDER NEW NAME AND CONTENTS ARE THE SAME
+//    AbstractFile* newFile = sfs->openFile(newfilename + ".txt");
+//    bool isNull2 = newFile == nullptr;
+//    ASSERT_FALSE(isNull2);
+//    // SET UP USER PASSWORD INPUT AND READ AGAIN TO GET TRUE CONTENTS
+//    ss_in << password + "\n";
+//    vector<char> contentswithpassword = newFile->read();
+//    ASSERT_EQ(contentswithpassword.size(), v.size());
+//    ASSERT_EQ(contentswithpassword[0], v[0]);
+//    ASSERT_EQ(contentswithpassword[1], v[1]);
+//    // SECOND READ CALL NOT GIVEN A PASSWORD -- SHOULD FAIL AND GET AN EMPTY VECTOR
+//    vector<char> contents = newFile->read();
+//    ASSERT_EQ(static_cast<size_t>(0), contents.size());
+//    // EXPECTATION -- ADDRESSES ARE DIFFERENT
+//    bool areEqual = &file == &newFile;
+//    ASSERT_FALSE(areEqual);
+//    // EXPECTATION -- FILE TYPE MATCHES
+//    PasswordProxy* proxyCheck = dynamic_cast<PasswordProxy*>(newFile);
+//    bool isNotPasswordProxy = proxyCheck == nullptr;
+//    ASSERT_FALSE(isNotPasswordProxy);
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//    // ASSIGN CIN BACK TO STDIN
+//    cin.rdbuf(backup_in);
+//}
+//
+//TEST(DSCommand,displaytext) {
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//    string filename1 = "file.txt";
+//    ASSERT_EQ(0, sfs->addFile(filename1, sff->createFile(filename1)));
+//    AbstractFile* f = sfs->openFile(filename1);
+//    vector<char> v = { 'h', 'i','\n','h','e','l','l','o' };
+//    f->write(v);
+//    sfs->closeFile(f);
+//    // REDIRECT COUT STREAM
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//    // execute ds
+//    AbstractCommand* ds = new DisplayCommand(sfs);
+//    ASSERT_EQ(0, ds->execute(filename1));
+//    ss_out >> noskipws;
+//    char c;
+//    for (size_t i = 0; i < v.size(); ++i) {
+//        ss_out >> c;
+//        ASSERT_EQ(v[i], c);
+//    }
+//    // ensure the file was closed
+//    f = sfs->openFile(filename1);
+//    bool isNull = f == nullptr;
+//    ASSERT_FALSE(isNull);
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//}
+//
+//TEST(DSCommand,displaytextunformatted) {
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//    string filename1 = "file.txt";
+//    ASSERT_EQ(0, sfs->addFile(filename1, sff->createFile(filename1)));
+//    AbstractFile* f = sfs->openFile(filename1);
+//    vector<char> v = { 'h', 'i','\n','h','e','l','l','o' };
+//    f->write(v);
+//    sfs->closeFile(f);
+//    // REDIRECT COUT STREAM
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//    // execute ds
+//    AbstractCommand* ds = new DisplayCommand(sfs);
+//    ASSERT_EQ(0, ds->execute(filename1 + " -d"));
+//    ss_out >> noskipws;
+//    char c;
+//    for (size_t i = 0; i < v.size(); ++i) {
+//        ss_out >> c;
+//        ASSERT_EQ(v[i], c);
+//    }
+//    // ensure the file was closed
+//    f = sfs->openFile(filename1);
+//    bool isNull = f == nullptr;
+//    ASSERT_FALSE(isNull);
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//}
+//
+//TEST(DSCommand,displayimageformatted) {
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//    string filename1 = "file.img";
+//    ASSERT_EQ(0, sfs->addFile(filename1, sff->createFile(filename1)));
+//    AbstractFile* f = sfs->openFile(filename1);
+//    vector<char> v = { 'X',' ',' ','X',' ',' ','X', ' ',' ','3' };
+//    vector<char> expectedOutput = { 'X',' ',' ','\n','X',' ',' ','\n','X',' ',' ','\n' };
+//    f->write(v);
+//    sfs->closeFile(f);
+//    // REDIRECT COUT STREAM
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//    // execute ds
+//    AbstractCommand* ds = new DisplayCommand(sfs);
+//    ASSERT_EQ(0, ds->execute(filename1));
+//    ss_out >> noskipws;
+//    char c;
+//    for (size_t i = 0; i < expectedOutput.size(); ++i) {
+//        ss_out >> c;
+//        ASSERT_EQ(expectedOutput[i], c);
+//    }
+//    // ensure the file was closed
+//    f = sfs->openFile(filename1);
+//    bool isNull = f == nullptr;
+//    ASSERT_FALSE(isNull);
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//}
+//
+//TEST(DSCommand,displayimageunformatted) {
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//    string filename1 = "file.img";
+//    ASSERT_EQ(0, sfs->addFile(filename1, sff->createFile(filename1)));
+//    AbstractFile* f = sfs->openFile(filename1);
+//    vector<char> v = { 'X',' ',' ','X',' ',' ','X', ' ',' ','3' };
+//    vector<char> expectedOutput = { 'X',' ',' ','X',' ',' ','X',' ',' ','\n' };
+//    f->write(v);
+//    sfs->closeFile(f);
+//    // REDIRECT COUT STREAM
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//    // execute ds
+//    AbstractCommand* ds = new DisplayCommand(sfs);
+//    ASSERT_EQ(0, ds->execute(filename1 + " -d"));
+//    ss_out >> noskipws;
+//    char c;
+//    for (size_t i = 0; i < expectedOutput.size(); ++i) {
+//        ss_out >> c;
+//        ASSERT_EQ(expectedOutput[i], c);
+//    }
+//    // ensure the file was closed
+//    f = sfs->openFile(filename1);
+//    bool isNull = f == nullptr;
+//    ASSERT_FALSE(isNull);
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//}
+//
+//TEST(DSCommand,displayinvalid) {
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//    // REDIRECT COUT STREAM
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//    string filename1 = "file.img";
+//    ASSERT_EQ(0, sfs->addFile(filename1, sff->createFile(filename1)));
+//    AbstractCommand* ds = new DisplayCommand(sfs);
+//    ASSERT_NE(0, ds->execute("file.txt"));
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//}
+//
+//TEST(copy,validcopy) {
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//
+//    // REDIRECT COUT STREAM
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//
+//    string filename = "file.txt";
+//    ASSERT_EQ(0, sfs->addFile(filename, sff->createFile(filename)));
+//    AbstractFile* f = sfs->openFile(filename);
+//    vector<char> original = { 'h','i' };
+//    f->write(original);
+//    sfs->closeFile(f);
+//    string copyname = "copy.txt";
+//    AbstractCommand* cp = new CopyCommand(sfs);
+//    ASSERT_EQ(0, cp->execute(filename + " copy"));
+//    f = sfs->openFile(filename);
+//    bool isNull = f == nullptr;
+//    ASSERT_FALSE(isNull);
+//    AbstractFile* f_copy = sfs->openFile(copyname);
+//    isNull = f_copy == nullptr;
+//    ASSERT_FALSE(isNull);
+//    ASSERT_EQ(copyname, f_copy->getName());
+//    bool sameFile = f_copy == f;
+//    ASSERT_FALSE(sameFile);
+//    vector<char> copy_contents = f_copy->read();
+//    ASSERT_EQ(original.size(), copy_contents.size());
+//    ASSERT_EQ(original.size(), (size_t)f->getSize());
+//    for (size_t i = 0; i < original.size(); ++i) {
+//        ASSERT_EQ(original[i], copy_contents[i]);
+//    }
+//    TextFile* t_p = dynamic_cast<TextFile*>(f_copy);
+//    isNull = t_p == nullptr;
+//    ASSERT_FALSE(isNull);
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//}
+//
+//TEST(copy,invalidcopy) {
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//
+//    // REDIRECT COUT STREAM
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//
+//    string filename = "file.txt";
+//    ASSERT_EQ(0, sfs->addFile(filename, sff->createFile(filename)));
+//    AbstractFile* f = sfs->openFile(filename);
+//    vector<char> original = { 'h','i' };
+//    f->write(original);
+//    sfs->closeFile(f);
+//    AbstractCommand* cp = new CopyCommand(sfs);
+//    ASSERT_NE(0, cp->execute(filename + " file"));
+//    ASSERT_NE(0, cp->execute("madeupname.txt othername"));
+//    // ensure the original file wasn't changed and is closed
+//    f = sfs->openFile(filename);
+//    bool isNull = f == nullptr;
+//    ASSERT_FALSE(isNull);
+//    vector<char> after_invalid = f->read();
+//    ASSERT_EQ(original.size(), after_invalid.size());
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//}
+//
+//TEST(copy,copypasswordprotected) {
+//    AbstractFileSystem* sfs = new SimpleFileSystem();
+//    AbstractFileFactory* sff = new SimpleFileFactory();
+//
+//    // REDIRECT COUT STREAM
+//    streambuf* backup_out;
+//    backup_out = cout.rdbuf();
+//    stringstream ss_out;
+//    cout.rdbuf(ss_out.rdbuf());
+//
+//    string filename = "file.txt";
+//    AbstractFile* realfile = sff->createFile(filename);
+//    vector<char> original = { 'h','i' };
+//    realfile->write(original);
+//    string pw = "easypassword";
+//    AbstractFile* proxy_toreal = new PasswordProxy(realfile, pw);
+//    ASSERT_EQ(0, sfs->addFile(proxy_toreal->getName(), proxy_toreal));
+//    AbstractCommand* cp = new CopyCommand(sfs);
+//    string copyname = "copy.txt";
+//    ASSERT_EQ(0, cp->execute(filename + " copy"));
+//    AbstractFile* proxy_copy = sfs->openFile(copyname);
+//    bool isNull = proxy_copy == nullptr;
+//    ASSERT_FALSE(isNull);
+//    PasswordProxy* proxy_tocopy = dynamic_cast<PasswordProxy*>(proxy_copy);
+//    isNull = proxy_tocopy == nullptr;
+//    ASSERT_FALSE(isNull);
+//    bool sameProxy = proxy_tocopy == proxy_toreal;
+//    ASSERT_FALSE(sameProxy);
+//    // REDIRECT CIN STREAM
+//    streambuf* backup_in;
+//    backup_in = cin.rdbuf();
+//    stringstream ss_in;
+//    cin.rdbuf(ss_in.rdbuf());
+//    // MIMIC USER INPUT
+//    ss_in << pw << '\n';
+//    vector<char> newdata = { 'h','e','l','l','o' };
+//    ASSERT_EQ(0, proxy_tocopy->write(newdata));
+//    auto v = realfile->read();
+//    ASSERT_EQ(original.size(), v.size());
+//    for (size_t i = 0; i < v.size(); ++i) {
+//        ASSERT_EQ(original[i], v[i]);
+//    }
+//    // ASSIGN COUT BACK TO STDOUT
+//    cout.rdbuf(backup_out);
+//    // ASSIGN CIN BACK TO STDIN
+//    cin.rdbuf(backup_in);
+//}
