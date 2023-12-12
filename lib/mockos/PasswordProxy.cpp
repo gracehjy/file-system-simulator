@@ -72,11 +72,17 @@ string PasswordProxy::getName() {
     return file->getName();
 }
 
-// calls accept on the file if the password entered by the user is correcthelp
+// calls accept on the file if the password entered by the user is correct
 void PasswordProxy::accept(AbstractFileVisitor *visitor) {
     string pw = passwordPrompt();
     bool isCorrect = passwordMatch(pw);
     if(isCorrect){
         file->accept(visitor);
     }
+}
+
+AbstractFile *PasswordProxy::copy(std::string newFileName) {
+    AbstractFile* name = file->copy(newFileName);
+    PasswordProxy* newFile = new PasswordProxy(name, this->password);
+    return newFile;
 }

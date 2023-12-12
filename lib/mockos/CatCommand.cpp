@@ -13,8 +13,8 @@ CatCommand::~CatCommand(){}
 
 // tells the user how to invoke the cat command and describes the command
 void CatCommand::displayInfo() {
-    cout << "Cat is a utility that is useful for concatenating files; it can also be used to write to a file." << endl;
-    cout << "Cat can be invoked with the command: cat <filename> [-a]" << endl;
+    cout << "cat is a utility that is useful for concatenating files; it can also be used to write to a file." << endl;
+    cout << "cat can be invoked with the command: cat <filename> [-a]" << endl;
     cout << "-a will display the current contents of the file and append new content to it." << endl;
 }
 

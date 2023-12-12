@@ -16,4 +16,5 @@ public:
     int append(std::vector<char> additionalContent) override;
     std::vector<char> read() override;
     void accept(AbstractFileVisitor* visitor) override;
+    AbstractFile* copy(std::string newFileName) override;
 };

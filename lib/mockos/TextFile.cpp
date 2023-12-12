@@ -39,3 +39,10 @@ void TextFile::accept(AbstractFileVisitor *visitor) {
     visitor->visit_TextFile(this);
 }
 
+// copy text file contents into a new text file
+AbstractFile *TextFile::copy(std::string newFileName) {
+    TextFile* newFile = new TextFile(newFileName);
+    newFile->fileContents = this->read();
+    return newFile;
+}
+

@@ -56,3 +56,11 @@ vector<char> ImageFile::read() {
 void ImageFile::accept(AbstractFileVisitor *visitor) {
     visitor->visit_ImageFile(this);
 }
+
+// copy image file contents into a new image file
+AbstractFile *ImageFile::copy(std::string newFileName) {
+    ImageFile* newFile = new ImageFile(newFileName);
+    newFile->fileContents = this->read();
+    newFile->imageSize = this->getSize();
+    return newFile;
+}

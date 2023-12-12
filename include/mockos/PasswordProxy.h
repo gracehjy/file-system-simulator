@@ -17,6 +17,7 @@ public:
     virtual unsigned int getSize() override;
     virtual std::string getName() override;
     virtual void accept(AbstractFileVisitor* visitor) override;
+    AbstractFile* copy(std::string newFileName) override;
 protected:
     std::string passwordPrompt();
     bool passwordMatch(std::string enteredPassword);

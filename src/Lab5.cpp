@@ -6,6 +6,7 @@
 #include "mockos/RemoveCommand.h"
 #include "mockos/CatCommand.h"
 #include "mockos/DisplayCommand.h"
+#include "mockos/CopyCommand.h"
 #include <iostream>
 using namespace std;
 
@@ -18,6 +19,7 @@ int main(){
     RemoveCommand* rmCommand = new RemoveCommand(fileSystem, fileFactory);
     CatCommand* catCommand = new CatCommand(fileSystem, fileFactory);
     DisplayCommand* dsCommand = new DisplayCommand(fileSystem, fileFactory);
+    CopyCommand* cpCommand = new CopyCommand(fileSystem, fileFactory);
 
     // create a variable of type CommandPrompt and configure it with the above created objects
     CommandPrompt* commandPrompt = new CommandPrompt();
@@ -28,6 +30,7 @@ int main(){
     commandPrompt->addCommand("rm", rmCommand);
     commandPrompt->addCommand("cat", catCommand);
     commandPrompt->addCommand("ds", dsCommand);
+    commandPrompt->addCommand("cp", cpCommand);
 
     // call run() on the commandPrompt object
     commandPrompt->run();
