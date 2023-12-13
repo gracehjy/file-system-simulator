@@ -24,7 +24,7 @@ void CommandPrompt::setFileFactory(AbstractFileFactory *fileFactory) {
 // inserts the parameters passed to this function as a pair into the map of commands
 // returns success if the insertion was successful, returns a non-zero value otherwise
 int CommandPrompt::addCommand(std::string name , AbstractCommand *command) {
-    auto result = commandMap.insert(std::make_pair(name, command));
+    auto result = commandMap.insert(make_pair(name, command));
     if(result.second){
         return success;
     }
@@ -34,7 +34,7 @@ int CommandPrompt::addCommand(std::string name , AbstractCommand *command) {
 // iterates over each command in the map and prints the command’s name
 void CommandPrompt::listCommands() {
     cout << "Commands: " << endl;
-    for(auto& command : commandMap){
+    for(auto command : commandMap){
         cout << command.first << endl;
     }
 }
@@ -53,9 +53,11 @@ string CommandPrompt::prompt() {
 int CommandPrompt::run() {
     while(true){
         string userInput = prompt();
+        // if user quits, return
         if(userInput == "q"){
             return user_quit;
         }
+        // if user needs help, list the commands
         else if(userInput == "help"){
             listCommands();
         }
@@ -72,7 +74,7 @@ int CommandPrompt::run() {
             // if input is only one word long, search the map for the command that matches the input
             if(isOneWordLong){
                 bool commandExists = false;
-                for(auto& command : commandMap){
+                for(auto command : commandMap){
                     if(command.first == userInput){
                         commandExists = true;
                         int returnVal = command.second->execute("");
@@ -82,6 +84,7 @@ int CommandPrompt::run() {
                         break;
                     }
                 }
+                // if the command does not exist, print a valid error message
                 if(!commandExists){
                     cout << "Invalid command." << endl;
                 }
@@ -90,6 +93,7 @@ int CommandPrompt::run() {
                 // if input is longer than one word, wrap the input in an istringstream and extract the first word into a string
                 istringstream iss(userInput);
                 string firstWord, secondWord;
+
                 // ws gets rid of whitespace
                 iss >> firstWord >> ws;
                 getline(iss, secondWord);
@@ -97,13 +101,14 @@ int CommandPrompt::run() {
                 // if first word is "help", extract a second string and see if that command exists
                 if (firstWord == "help") {
                     bool commandExists = false;
-                    for (auto& command: commandMap) {
+                    for (auto command: commandMap) {
                         if (command.first == secondWord) {
                             commandExists = true;
                             command.second->displayInfo();
                             break;
                         }
                     }
+                    // if the command does not exist, print a valid error message
                     if(!commandExists){
                         cout << "Invalid command." << endl;
                     }
@@ -111,7 +116,7 @@ int CommandPrompt::run() {
                 else{
                     // first word is the command name
                     bool commandExists = false;
-                    for(auto& command : commandMap){
+                    for(auto command : commandMap){
                         if(command.first == firstWord){
                             commandExists = true;
                             int returnVal = command.second->execute(secondWord);
@@ -121,6 +126,7 @@ int CommandPrompt::run() {
                             break;
                         }
                     }
+                    // if the command does not exist, print a valid error message
                     if(!commandExists){
                         cout << "Invalid command." << endl;
                     }

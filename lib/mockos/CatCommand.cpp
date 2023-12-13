@@ -40,8 +40,8 @@ int CatCommand::execute(std::string file) {
         // prompt user to enter new data
         cout << "Enter data you would like to write to the file. Enter :wq to save the file and exit, enter :q to exit without saving" << endl;
 
-        // input includes all user inputs including :wq and :q
-        // newData will just include everything else
+        // store user input into a string variable
+        // store data into a vector of characters so that we can easily call the write and append methods
         string input;
         vector<char> newData;
 

@@ -56,8 +56,8 @@ int SimpleFileSystem::deleteFile(std::string fileName) {
 // return a set<string> containing the names of all the files
 set<string> SimpleFileSystem::getFileNames() {
     set<string> fileNames;
-    for(auto& entry : files){
-        fileNames.insert(entry.first);
+    for(auto file : files){
+        fileNames.insert(file.first);
     }
     return fileNames;
 }

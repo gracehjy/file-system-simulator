@@ -15,6 +15,7 @@ void RemoveCommand::displayInfo() {
     cout << "rm removes a file from the file system, rm can be invoked with the command: rm <filename>" << endl;
 }
 
+// executes the remove command
 int RemoveCommand::execute(std::string file) {
     set<string> fileNames = fileSystem->getFileNames();
     // if the file exists in the system, remove it

@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// parses the input and returns a vector where index 0 is <existing_file> <new_name> and index 1 is <existing_file>
 vector<string> RenameParsingStrategy::parse(std::string input) {
     vector<string> parsedInputs;
     istringstream iss(input);

@@ -24,17 +24,17 @@ int LSCommand::execute(std::string file) {
     if(file == "-m"){
         MetadataDisplayVisitor metadataDisplayVisitor;
         set<string> fileNames = fileSystem->getFileNames();
-        for(auto& fileName : fileNames){
+        for(auto fileName : fileNames){
             AbstractFile* file = fileSystem->openFile(fileName);
             file->accept(&metadataDisplayVisitor);
             fileSystem->closeFile(file);
         }
     }
     // for the normal command, we want to display two file names per line so we will keep track of this using a count variable
-    else if(file == "ls" || file == ""){
+    else if(file == ""){
         set<string> fileNames = fileSystem->getFileNames();
         int count = 0;
-        for(auto& fileName: fileNames){
+        for(auto fileName: fileNames){
             // align each column using setw and left for left-alignment
             cout << left << setw(20) << fileName << " ";
             count++;

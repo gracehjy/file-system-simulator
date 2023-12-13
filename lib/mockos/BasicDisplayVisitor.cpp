@@ -10,13 +10,15 @@ using namespace std;
 void BasicDisplayVisitor::visit_ImageFile(ImageFile *file) {
     vector<char> content = file->read();
     int area = file->getSize();
+
+    // when we need to input a newline
     int size = sqrt(area);
 
-
-    for(int index = 0; index < area; index++){
+    // output each index
+    for(int index = start; index < area; index++){
         cout << content[index];
-        int nextIndex = index + 1;
-        if(nextIndex % size == 0){
+        int nextIndex = index + addOne;
+        if(nextIndex % size == noRemainders){
             cout << endl;
         }
     }

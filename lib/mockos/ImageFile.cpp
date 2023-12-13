@@ -28,6 +28,7 @@ int ImageFile::write(vector<char> contents) {
         return size_mismatch;
     }
 
+    // we want to overwrite current content so we have to clear the current content
     fileContents.clear();
 
     // push each valid char in the vector into fileContents

@@ -7,6 +7,8 @@ using namespace std;
 
 // create a file of the given name by finding what type of file it is and then using the new keyword to create an object of the given type
 AbstractFile* SimpleFileFactory::createFile(std::string fileName) {
+    // find what the ext is
+    // source: https://cplusplus.com/reference/string/string/find_last_of/
     int dotIndex = fileName.find_last_of('.');
     string ext = fileName.substr(dotIndex+1);
 

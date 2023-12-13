@@ -29,6 +29,7 @@ int CopyCommand::execute(std::string file) {
     iss >> newFileName;
 
     // find what the ext is
+    // source: https://cplusplus.com/reference/string/string/find_last_of/
     int dotIndex = fileToCopy.find_last_of('.');
     string ext = fileToCopy.substr(dotIndex+1);
 
