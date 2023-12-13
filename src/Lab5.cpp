@@ -7,6 +7,8 @@
 #include "mockos/CatCommand.h"
 #include "mockos/DisplayCommand.h"
 #include "mockos/CopyCommand.h"
+#include "mockos/MacroCommand.h"
+#include "mockos/RenameParsingStrategy.h"
 #include <iostream>
 using namespace std;
 
@@ -21,6 +23,14 @@ int main(){
     DisplayCommand* dsCommand = new DisplayCommand(fileSystem);
     CopyCommand* cpCommand = new CopyCommand(fileSystem);
 
+    // update main to create a MacroCommand object configured with a RenameParsingStrategy object as its AbstractParsingStrategy and a
+    // CopyCommand as well as a RemoveCommand object as its command objects
+    RenameParsingStrategy* renameParsingStrategy;
+    MacroCommand* macroCommand = new MacroCommand(fileSystem);
+    macroCommand->setParseStrategy(renameParsingStrategy);
+    macroCommand->addCommand(cpCommand);
+    macroCommand->addCommand(rmCommand);
+
     // create a variable of type CommandPrompt and configure it with the above created objects
     CommandPrompt* commandPrompt = new CommandPrompt();
     commandPrompt->setFileFactory(fileFactory);
@@ -32,19 +42,12 @@ int main(){
     commandPrompt->addCommand("ds", dsCommand);
     commandPrompt->addCommand("cp", cpCommand);
 
+    // add macroCommand to the commandPrompt so it will be invoked when the user provides "rn" as input
+    commandPrompt->addCommand("rn", macroCommand);
+
+
     // call run() on the commandPrompt object
     commandPrompt->run();
-
-    // verify “touch” worked correctly by trying to open the file it created.
-    cout << "Attempting to open the file created by touch..." << endl;
-    AbstractFile* openedFile = fileSystem->openFile("file.txt");
-
-    if (openedFile) {
-        cout << "File opened successfully!" << endl;
-        //You can perform further actions with the opened file if needed
-    } else {
-        cout << "Error opening the file." << endl;
-    }
 
     // Clean up dynamically allocated objects
     delete touchCommand;
@@ -52,6 +55,8 @@ int main(){
     delete rmCommand;
     delete catCommand;
     delete dsCommand;
+    delete cpCommand;
+    delete macroCommand;
     delete fileFactory;
     delete fileSystem;
     delete commandPrompt;

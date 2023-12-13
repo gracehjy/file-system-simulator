@@ -9,7 +9,7 @@ private:
     AbstractFileFactory* fileFactory;
 public:
     CopyCommand(AbstractFileSystem* fileSystem);
-    ~CopyCommand();
+    virtual ~CopyCommand();
     virtual void displayInfo() override;
     virtual int execute(std::string file) override;
 };

@@ -9,7 +9,7 @@ private:
     AbstractFileFactory* fileFactory;
 public:
     TouchCommand(AbstractFileSystem* fileSystem, AbstractFileFactory* fileFactory);
-    ~TouchCommand();
+    virtual ~TouchCommand();
     virtual void displayInfo() override;
     virtual int execute(std::string file) override;
 };

@@ -8,7 +8,7 @@ private:
     std::string password;
 public:
     PasswordProxy(AbstractFile* file, std::string password);
-    ~PasswordProxy();
+    virtual ~PasswordProxy();
 
     // functions inherited
     virtual std::vector<char> read() override;
