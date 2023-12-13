@@ -38,7 +38,8 @@ int TouchCommand::execute(string file) {
         cin >> password;
         newFile = new PasswordProxy(fileFactory->createFile(fileName), password);
 
-        // clear the input buffer to discard remaining characters
+        // clear the input buffer to discard remaining characters ('/n') after entering a password
+        // source: https://www.geeksforgeeks.org/clearing-the-input-buffer-in-cc/
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
     else{
@@ -50,13 +51,13 @@ int TouchCommand::execute(string file) {
         int returnVal = fileSystem->addFile(fileName, newFile);
         if(returnVal != success){
             delete newFile;
-            cout << "failed to add file" << endl;
+            cout << "Error: failed to add file" << endl;
             return failed_to_add_file;
         }
         return success;
     }
 
     // if the file was not created, return an error
-    cout << "failed to create file" << endl;
+    cout << "Error: failed to create file" << endl;
     return failed_to_create_file;
 }
