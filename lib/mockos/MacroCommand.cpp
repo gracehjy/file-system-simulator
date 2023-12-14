@@ -18,7 +18,9 @@ MacroCommand::~MacroCommand() {
 }
 
 void MacroCommand::displayInfo() {
-    cout << "Macro Commands:\nrn changes the name of an existing file, rn can be invoked with the command: rn <existing_file> <new_name_with_no_extension>" << endl;
+    cout << "Macro Commands:"
+            "\nrn changes the name of an existing file, rn can be invoked with the command: rn <existing_file> <new_name_with_no_extension>"
+            "\ntouchcat creates a file and allows for an immediate edit, touchcat can be invoked with the command: touchcat <filename>" << endl;
 }
 // executes the macro command
 int MacroCommand::execute(std::string file) {

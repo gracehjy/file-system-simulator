@@ -10,15 +10,12 @@ std::vector<std::string> TouchCatParsingStrategy::parse(const std::string input)
     iss >> fileName;
 
     std::vector<std::string> commands;
-    std::string touchCommand = "touch " + fileName;
-    std::string catCommand = "cat " + fileName;
+    std::string touchCommand = fileName;
+    std::string catCommand = fileName;
 
     while (iss >> option) {
-        if (option == "-p") {  // Option for touch command
+        if (option == "-p") {  // Option for touch command password proxy
             touchCommand += " -p";
-        }
-        else if (option == "-a") {  // Option for cat command
-            catCommand += " -a";
         }
     }
 

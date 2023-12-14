@@ -17,6 +17,9 @@ string PasswordProxy::passwordPrompt() {
     string pw;
     cout << "Input a password: ";
     cin >> pw;
+    // clear the input buffer to discard remaining characters ('/n') after entering a password
+    // source: https://www.geeksforgeeks.org/clearing-the-input-buffer-in-cc/
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     return pw;
 }
 
@@ -33,8 +36,10 @@ vector<char> PasswordProxy::read() {
     vector<char> fileContent;
     if(isCorrect){
         fileContent = file->read();
+        return fileContent;
     }
 
+    cout << "Incorrect Password" << endl;
     return fileContent;
 }
 
@@ -47,6 +52,7 @@ int PasswordProxy::write(std::vector<char> content) {
         file->write(content);
         return success;
     }
+    cout << "Incorrect Password" << endl;
     return incorrect_password;
 }
 
@@ -59,6 +65,7 @@ int PasswordProxy::append(std::vector<char> additionalContent) {
         file->append(additionalContent);
         return success;
     }
+    cout << "Incorrect Password" << endl;
     return incorrect_password;
 }
 

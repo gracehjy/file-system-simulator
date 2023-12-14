@@ -26,15 +26,15 @@ int main(){
 
     // update main to create a MacroCommand object configured with a RenameParsingStrategy object as its AbstractParsingStrategy and a
     // CopyCommand as well as a RemoveCommand object as its command objects
-    RenameParsingStrategy* renameParsingStrategy;
-    MacroCommand* macroCommand = new MacroCommand(fileSystem);
-    macroCommand->setParseStrategy(renameParsingStrategy);
-    macroCommand->addCommand(cpCommand);
-    macroCommand->addCommand(rmCommand);
+    RenameParsingStrategy* renameParsingStrategy = new RenameParsingStrategy();
+    MacroCommand* rmMacroCommand = new MacroCommand(fileSystem);
+    rmMacroCommand->setParseStrategy(renameParsingStrategy);
+    rmMacroCommand->addCommand(cpCommand);
+    rmMacroCommand->addCommand(rmCommand);
 
     // Creating the MacroCommand for 'Touch + cat'
+    TouchCatParsingStrategy* touchCatParsing = new TouchCatParsingStrategy;
     MacroCommand* touchCatMacro = new MacroCommand(fileSystem);
-    TouchCatParsingStrategy* touchCatParsing = new TouchCatParsingStrategy();
     touchCatMacro->setParseStrategy(touchCatParsing);
     touchCatMacro->addCommand(touchCommand);
     touchCatMacro->addCommand(catCommand);
@@ -51,7 +51,7 @@ int main(){
     commandPrompt->addCommand("cp", cpCommand);
 
     // add macroCommand to the commandPrompt so it will be invoked when the user provides "rn" as input
-    commandPrompt->addCommand("rn", macroCommand);
+    commandPrompt->addCommand("rn", rmMacroCommand);
 
     // Adding a new MacroCommand to the CommandPrompt
     commandPrompt->addCommand("touchcat", touchCatMacro); // Add the new macro command to the command prompt
@@ -66,7 +66,7 @@ int main(){
     delete catCommand;
     delete dsCommand;
     delete cpCommand;
-    delete macroCommand;
+    delete rmMacroCommand;
     delete touchCatMacro;
     delete touchCatParsing;
     delete fileFactory;
