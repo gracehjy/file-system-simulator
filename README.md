@@ -268,6 +268,28 @@ Attempting for file that already exists
         Error: failed to add file
         Command failed.
 
+Testing ls -m
+
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  touchcat hi.txt
+        Enter data you would like to write to the file. Enter :wq to save the file and exit, enter :q to exit without saving
+        hellllo
+        :wq
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  touchcat bye.img
+        Enter data you would like to write to the file. Enter :wq to save the file and exit, enter :q to exit without saving
+        X X X X X3
+        :wq
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  ls
+        bye.img              hi.txt
+        
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  ls -m
+        bye.img             image     9         
+        hi.txt              text      7         
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  
    
 
 
