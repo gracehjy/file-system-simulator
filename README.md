@@ -27,16 +27,22 @@
         cat can be invoked with the command: cat <filename> [-a]
         -a will display the current contents of the file and append new content to it.
 
-4. `touch <filename> <-p (optional)>` writing to a file and saving it
+4. `touch <filename> <-p (optional)>` adding a file
 
-Creating and displaying file with `ls`
+Creating a file
 
         $  touch dog.txt
         $  ls
         a.txt                b.txt                
         dog.txt  
 
-Password-protected
+Creating a file without extension name
+
+        $  touch hi
+        Error: failed to create file
+        Command failed.
+
+Creating a password-protected file
 
         $  touch b.txt -p
         What is the password?
