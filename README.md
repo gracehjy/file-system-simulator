@@ -29,6 +29,11 @@
         cat can be invoked with the command: cat <filename> [-a]
         -a will display the current contents of the file and append new content to it.
 
+Invalid command
+
+        $  jojo
+        Invalid command.
+
 2. `touch <filename> <-p (optional)>` adding a file
 
 Creating a file
