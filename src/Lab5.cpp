@@ -9,6 +9,7 @@
 #include "mockos/CopyCommand.h"
 #include "mockos/MacroCommand.h"
 #include "mockos/RenameParsingStrategy.h"
+#include "mockos/TouchCatParsingStrategy.h"
 #include <iostream>
 using namespace std;
 
@@ -31,6 +32,13 @@ int main(){
     macroCommand->addCommand(cpCommand);
     macroCommand->addCommand(rmCommand);
 
+    // Creating the MacroCommand for 'Touch + cat'
+    MacroCommand* touchCatMacro = new MacroCommand(fileSystem);
+    TouchCatParsingStrategy* touchCatParsing = new TouchCatParsingStrategy();
+    touchCatMacro->setParseStrategy(touchCatParsing);
+    touchCatMacro->addCommand(touchCommand);
+    touchCatMacro->addCommand(catCommand);
+
     // create a variable of type CommandPrompt and configure it with the above created objects
     CommandPrompt* commandPrompt = new CommandPrompt();
     commandPrompt->setFileFactory(fileFactory);
@@ -45,6 +53,8 @@ int main(){
     // add macroCommand to the commandPrompt so it will be invoked when the user provides "rn" as input
     commandPrompt->addCommand("rn", macroCommand);
 
+    // Adding a new MacroCommand to the CommandPrompt
+    commandPrompt->addCommand("touchcat", touchCatMacro); // Add the new macro command to the command prompt
 
     // call run() on the commandPrompt object
     commandPrompt->run();
@@ -57,6 +67,8 @@ int main(){
     delete dsCommand;
     delete cpCommand;
     delete macroCommand;
+    delete touchCatMacro;
+    delete touchCatParsing;
     delete fileFactory;
     delete fileSystem;
     delete commandPrompt;

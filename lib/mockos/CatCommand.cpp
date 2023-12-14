@@ -46,36 +46,36 @@ int CatCommand::execute(std::string file) {
         vector<char> newData;
 
         // read each input line
-        while(getline(cin, input)){
-            // if :wq is entered with -a as the option, save the data by appending it to the file and return success
-            if (input == ":wq") {
-                if (a != "-a") {
-                    newData.pop_back();
-                    theFile->write(newData);
+        while(getline(cin, input)) {
+            // Handle immediate exit commands
+            if(input == ":wq" || input == ":q") {
+                if(newData.empty()) {
+                    fileSystem->closeFile(theFile);
+                    return (input == ":wq") ? success : success_without_save;
                 }
-                else {
-                    newData.pop_back();
+
+                if (a != "-a" || input == ":q") {
+                    if(!newData.empty()) newData.pop_back(); // Safely remove the last '\n' if any data has been entered
+                    if(input == ":wq") {
+                        theFile->write(newData);
+                    }
+                } else {
+                    if(!newData.empty()) newData.pop_back(); // Safely remove the last '\n' if any data has been entered
                     int returnVal = theFile->append(newData);
-                    // image files cannot append
-                    if(returnVal != success){
+                    if(returnVal != success) {
                         return file_type_not_supported;
                     }
                 }
                 fileSystem->closeFile(theFile);
                 return success;
             }
-            // if :q is entered, don't save and just return
-            else if(input == ":q"){
-                fileSystem->closeFile(theFile);
-                return success;
-            }
-            else{
-                // if neither are entered, temporarily save the data
+            else {
+                // if neither :wq nor :q are entered, temporarily save the data
                 newData.insert(newData.end(), input.begin(), input.end());
                 newData.push_back('\n');
             }
-
         }
+
         fileSystem->closeFile(theFile);
         return success;
     }
