@@ -27,9 +27,33 @@
         cat can be invoked with the command: cat <filename> [-a]
         -a will display the current contents of the file and append new content to it.
 
-4. `ls`
+4. `touch [filename] [-p (optional)]` writing to a password protected file and saving it
 
-        $  ls
+        $  touch b.txt -p
+        What is the password?
+        123456
+        $  cat b.txt
+        Enter data you would like to write to the file. Enter :wq to save the file and exit, enter :q to exit without saving
+        apple
+        :wq
+        Input a password: 123456
+        $  ds b.txt
+        Input a password: 123456
+        apple
+
+        $  cat b.txt
+        Enter data you would like to write to the file. Enter :wq to save the file and exit, enter :q to exit without saving
+        banana
+        :wq
+        Input a password: 12345
+        Incorrect Password
+
+6. 
+
+           
+
+
+   
 
 
 
