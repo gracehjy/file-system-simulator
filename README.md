@@ -8,6 +8,13 @@ Lab #5
 2. Chris Chen: Worked on cat, ds, and touchcat (our additional macroCommand). Did most of the case testings and also completed the majority of the ReadMe file
 3. Eric Wang: Worked on the copy command and helped with case testing.
 
+--ERRORS ENCOUNTERED--
+1. The usual syntax errors 
+2. Had trouble displaying ls -m correctly. We had to mess around with setw and other alignments
+3. When implement the cat command, we forgot to resolve the case where a user types :wq or :q immediately so before we fixed it, it would break our program
+4. Some times we would forget to close a file after we were done with it, so that caused errors when we tried to do other commands on it
+5. In the touch command, when we added the -p option, it originally would say that the command failed after a user inputs a password. This was because after we press enter, a new line would get created and the program would think that
+   that was our next command which is obviously not a valid command. To fix this, we did some researching and learned that we could clear the input buffer using cin.ignore().
 
 --TEST CASES (ALL RUN AS EXPECTED)--
 

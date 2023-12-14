@@ -43,7 +43,6 @@ int SimpleFileSystem::deleteFile(std::string fileName) {
     if(f != files.end()){
         if(openFiles.find(f->second) == openFiles.end()){
             files.erase(f);
-            delete f->second;
             return success;
         }
         else{
