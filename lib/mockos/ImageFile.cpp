@@ -25,6 +25,7 @@ int ImageFile::write(vector<char> contents) {
     if(t * t != contents.size() - 1){
         fileContents.clear();
         imageSize = '0';
+        cout << "Error: image size mismatch. Provided size: " << t*t << ". Actual size: " << contents.size() - 1 << endl;
         return size_mismatch;
     }
 
@@ -36,6 +37,7 @@ int ImageFile::write(vector<char> contents) {
         if(contents[i] != 'X' && contents[i] != ' '){
             fileContents.clear();
             imageSize = '0';
+            cout << "Error: invalid characters" << endl;
             return invalid_chars;
         }
         fileContents.push_back(contents[i]);
@@ -45,6 +47,7 @@ int ImageFile::write(vector<char> contents) {
 
 // if a user tries to append, return an error
 int ImageFile::append(vector<char> additionalContent) {
+    cout << "Error: cannot append to image files" << endl;
     return file_type_not_supported;
 }
 

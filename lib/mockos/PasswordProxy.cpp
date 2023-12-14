@@ -86,6 +86,9 @@ void PasswordProxy::accept(AbstractFileVisitor *visitor) {
     if(isCorrect){
         file->accept(visitor);
     }
+    else{
+        cout << "Incorrect Password" << endl;
+    }
 }
 
 AbstractFile *PasswordProxy::copy(std::string newFileName) {
