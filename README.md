@@ -1,13 +1,15 @@
 --TEST CASES (ALL RUN AS EXPECTED)--
 
-1. `q` to quit
+1. Base commands
+
+`q` to quit
 
         Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
         $  q
         
         Process finished with exit code 139 (interrupted by signal 11: SIGSEGV)
 
-2. `help` to display list of commands
+`help` to display list of commands
 
         $  help
         Commands: 
@@ -20,14 +22,14 @@
         touch
         touchcat
 
-3. `help <command>` to display info about a command. ex. for cat:
+`help <command>` to display info about a command. ex. for cat:
 
         $  help cat
         cat is a utility that is useful for concatenating files; it can also be used to write to a file.
         cat can be invoked with the command: cat <filename> [-a]
         -a will display the current contents of the file and append new content to it.
 
-4. `touch <filename> <-p (optional)>` adding a file
+2. `touch <filename> <-p (optional)>` adding a file
 
 Creating a file
 
@@ -65,7 +67,7 @@ Incorrect password
         Input a password: 12345
         Incorrect Password
 
-5. `cat <filename> [-a]`
+3. `cat <filename> [-a]`
 
 Writing and quitting a file
 
@@ -91,7 +93,7 @@ Showing existing file contents
         second sentence
 
 
-7. `cp <file_to_copy> <new_name_with_no_extension`
+4. `cp <file_to_copy> <new_name_with_no_extension`
 
 Copying (a password-protected file)
 
@@ -111,7 +113,7 @@ Copying a non-existent file
         Error: the original file to be copied does not exist
         Command failed.
 
-7. `rm <filename>`
+5. `rm <filename>`
 
 Removing a file
 
@@ -130,7 +132,7 @@ Attempting to remove non-existent file
         $  rm
         Command failed.
 
-8. `rn <existing_file> <new_name_with_no_extension>`
+6. `rn <existing_file> <new_name_with_no_extension>`
 
 Renaming file
 
@@ -146,7 +148,7 @@ Attempting to rename non-existent file
         Error: the original file to be copied does not exist
         Command failed.
 
-9. `ds <filename> [-d]`
+7. `ds <filename> [-d]`
 
 Display file contents
 
@@ -168,7 +170,7 @@ Attempting to display non-existent file
         $  ds nonexistent.txt
         Command failed.
 
-10. `touchcat <filename>`
+8. `touchcat <filename>`
 
 Creating and opening file 
 
