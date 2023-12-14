@@ -51,7 +51,7 @@ int CatCommand::execute(std::string file) {
             if(input == ":wq" || input == ":q") {
                 if(newData.empty()) {
                     fileSystem->closeFile(theFile);
-                    return (input == ":wq") ? success : success_without_save;
+                    return success;
                 }
 
                 if (a != "-a" || input == ":q") {

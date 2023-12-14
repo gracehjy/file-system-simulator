@@ -57,7 +57,7 @@ int main(){
     commandPrompt->addCommand("touchcat", touchCatMacro); // Add the new macro command to the command prompt
 
     // call run() on the commandPrompt object
-    commandPrompt->run();
+    int returnVal = commandPrompt->run();
 
     // Clean up dynamically allocated objects
     delete touchCommand;
@@ -67,11 +67,12 @@ int main(){
     delete dsCommand;
     delete cpCommand;
     delete rmMacroCommand;
+    delete renameParsingStrategy;
     delete touchCatMacro;
     delete touchCatParsing;
     delete fileFactory;
     delete fileSystem;
     delete commandPrompt;
 
-    return success;
+    return returnVal;
 }

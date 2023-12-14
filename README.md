@@ -1,4 +1,18 @@
+Group Members: Grace Huang, Chris Chen, Eric Wang
+
+Lab #5
+
+--GROUP WORK (BESIDES STUDIO WORK BECAUSE THOSE WERE MAINLY COMPLETED COLLABORATIVELY IN CLASS--
+
+1. Grace Huang: Worked on ls, remove, touch (updated for password-protected files), and macroCommand (rename). Also contributed to some of the ReadMe file
+2. Chris Chen: Worked on cat, ds, and touchcat (our additional macroCommand). Did most of the case testings and also completed the majority of the ReadMe file
+3. Eric Wang: Worked on the copy command and helped with case testing.
+
+
 --TEST CASES (ALL RUN AS EXPECTED)--
+
+Note: the program should essentially always return an exit code of 13 indicating that a user quit because unless the user quits, the program will always run and reprompt the user for input. 
+Most, if not all, of the return value enumerations are located in the AbstractFile.h file if that sparks any curiosity.
 
 1. Base commands
 
@@ -6,8 +20,9 @@
 
         Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
         $  q
+        User has quit
         
-        Process finished with exit code 139 (interrupted by signal 11: SIGSEGV)
+        Process finished with exit code 13
 
 `help` to display list of commands
 
@@ -71,32 +86,77 @@ Incorrect password
         :wq
         Input a password: 12345
         Incorrect Password
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $
 
 3. `cat <filename> [-a]`
 
-Writing and quitting a file
+Writing and quitting a file with saving 
 
         $  cat a.txt
         Enter data you would like to write to the file. Enter :wq to save the file and exit, enter :q to exit without saving
         first sentence
         :wq
-
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  ds a.txt
+        first sentence
         
-Quitting a file
+Writing and quitting a file without saving
 
         $  cat a.txt
         Enter data you would like to write to the file. Enter :wq to save the file and exit, enter :q to exit without saving
+        don't save this lol
         :q
-        Command failed.
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  ds a.txt
+        first sentence
 
-Showing existing file contents
+Showing existing file contents and appending to a text file
 
         $  cat a.txt -a
         Input a password: 123456
         first sentence
         Enter data you would like to write to the file. Enter :wq to save the file and exit, enter :q to exit without saving
         second sentence
+        :wq
+        Input a password: 123456
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  ds a.txt
+        Input a password: 123456
+        first sentencesecond sentence
 
+Writing and quitting an image file with saving (also shows formatted and unformatted displays)
+
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  cat test.img
+        Enter data you would like to write to the file. Enter :wq to save the file and exit, enter :q to exit without saving
+        X X X X X3
+        :wq
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  ds test.img
+        X X
+         X
+        X X
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  ds test.img -d
+        X X X X X
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $
+
+Trying to append to an image file
+
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $  cat test.img -a
+        X X
+         X
+        X X
+        Enter data you would like to write to the file. Enter :wq to save the file and exit, enter :q to exit without saving
+        X X X X X3
+        :wq
+        Error: cannot append to image files
+        Command failed.
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $
 
 4. `cp <file_to_copy> <new_name_with_no_extension`
 
@@ -111,12 +171,17 @@ Disallowing copy to existing files (must be new name)
 
         cp b.txt c
         Error: failed to add the new file to the file system
+        Command failed.
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $
 
 Copying a non-existent file
 
         $  cp nonexistent.txt newfile
         Error: the original file to be copied does not exist
         Command failed.
+        Enter a command, q to quit, help for a list of commands, or help followed by a command name for more information about that command.
+        $
 
 5. `rm <filename>`
 
@@ -165,10 +230,8 @@ Display empty file
         $  ds b.txt
         
 
-Display unformatted file contents
+Display formatted and unformatted file contents (SHOWN UNDER CAT COMMAND TESTS)
 
-        $  ds a.txt -d
-        abcdefg
         
 Attempting to display non-existent file
 

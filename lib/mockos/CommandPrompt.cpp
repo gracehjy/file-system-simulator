@@ -55,6 +55,7 @@ int CommandPrompt::run() {
         string userInput = prompt();
         // if user quits, return
         if(userInput == "q"){
+            cout << "User has quit" << endl;
             return user_quit;
         }
         // if user needs help, list the commands

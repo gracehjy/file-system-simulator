@@ -9,13 +9,7 @@ using namespace std;
 MacroCommand::MacroCommand(AbstractFileSystem* fileSystem): fileSystem(fileSystem), parsePtr(nullptr) {}
 
 // destructor: delete all the commands and clear the vector of commands
-MacroCommand::~MacroCommand() {
-    for(AbstractCommand* command : commands){
-        delete command;
-    }
-    commands.clear();
-    delete parsePtr;
-}
+MacroCommand::~MacroCommand() {}
 
 void MacroCommand::displayInfo() {
     cout << "Macro Commands:"
